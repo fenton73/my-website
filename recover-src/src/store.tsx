@@ -85,14 +85,17 @@ const defaultTimeline = (injury: string): Phase[] => [
 ];
 
 export function defaultState(): State {
-  const injury = todayKey();
+  // Pre-loaded for the current user. Change these any time in Settings → Your
+  // profile (dates) and the Medication page (reminders) — nothing here is fixed.
+  const injury = "2026-07-11";           // injury: 11 July 2026 (~5pm)
+  const nextAppt = "2026-07-24";         // fracture-clinic appointment: 24 July 2026
   return {
     version: 1,
     onboarded: false,
     profile: {
       name: "",
       injuryDate: injury,
-      nextAppointment: null,
+      nextAppointment: nextAppt,
       footballTarget: null,
       phase: "cast",
     },
@@ -102,8 +105,13 @@ export function defaultState(): State {
     hiddenTasks: [],
     timeline: defaultTimeline(injury),
     goals: [],
-    medications: [],
-    appointments: [],
+    medications: [
+      // Daily 8:30pm injection reminder. Tick the 20:30 chip each evening to log it.
+      { id: "injection", name: "Injection", dose: "As prescribed — 8:30pm daily", times: ["20:30"], kind: "other", log: {}, active: true },
+    ],
+    appointments: [
+      { id: "appt-clinic", title: "Fracture clinic", date: nextAppt, location: "", notes: "First follow-up after the cast." },
+    ],
     questions: [],
     medNotes: [],
     docs: [],
