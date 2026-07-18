@@ -1,0 +1,24 @@
+{
+  "name": "Recover+ · Recovery Companion",
+  "short_name": "Recover+",
+  "description": "A calm, motivating companion for ankle-injury recovery. For organisation and education only — it never replaces medical advice.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eaf2ff",
+  "theme_color": "#337dff",
+  "categories": [
+    "health",
+    "lifestyle",
+    "medical"
+  ],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
