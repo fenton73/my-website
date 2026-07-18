@@ -1,0 +1,20 @@
+{
+  "name": "recover-plus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Recover+ — a calm, motivating PWA companion for ankle-injury recovery. Builds to ../recover.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "framer-motion": "^11.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.14"
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <meta name="theme-color" content="#337dff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0a1020" media="(prefers-color-scheme: dark)" />
+  <meta name="description" content="Recover+ — a calm, motivating companion for organising and tracking recovery from an ankle injury. For organisation and education only; it never replaces medical advice." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Recover+" />
+  <title>Recover+ · Recovery Companion</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Set theme before paint to avoid flash of wrong theme.
+    (function () {
+      try {
+        var s = localStorage.getItem("recoverplus.v1");
+        var theme = "light";
+        if (s) { var d = JSON.parse(s); if (d && d.settings && d.settings.theme) theme = d.settings.theme; }
+        if (theme === "system") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }
+    })();
+  </script>
+</head>
+<body>
+  <noscript>
+    <div style="padding:2rem;font-family:system-ui;max-width:40rem;margin:auto">
+      <h1>Recover+</h1>
+      <p>This recovery companion needs JavaScript enabled to run. Please enable JavaScript and reload.</p>
+    </div>
+  </noscript>
+  <div id="root"></div>
+  <script src="app.js" defer></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

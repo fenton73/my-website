@@ -1,0 +1,17 @@
+{
+  "name": "Recover+ · Recovery Companion",
+  "short_name": "Recover+",
+  "description": "A calm, motivating companion for organising and tracking recovery from an ankle injury. For organisation and education only — it never replaces medical advice.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eaf2ff",
+  "theme_color": "#337dff",
+  "categories": ["health", "lifestyle", "medical"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
