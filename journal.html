@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <title>My Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#1a3a5c; --blue:#2e6da4; --sky:#d6e8f7; --pale:#f0f6fc;
+      --gold:#c9933a; --gold-lt:#f5e6c8; --sage:#5d8a6e; --sage-lt:#ddeee5;
+      --rose:#c0706a; --white:#fff; --muted:#5a7a96; --border:#ccdeed; --text:#1a2b3c;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--pale);color:var(--text);font-weight:300;line-height:1.7;min-height:100vh}
+
+    header.top{background:var(--navy);color:var(--white);padding:2.4rem 5% 2rem;text-align:center}
+    header.top .eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);margin-bottom:.6rem}
+    header.top h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:500;letter-spacing:.02em}
+    header.top p{color:var(--sky);font-size:.95rem;margin-top:.4rem}
+
+    .wrap{max-width:680px;margin:0 auto;padding:2rem 1.2rem 4rem}
+
+    .card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1.8rem 1.6rem;margin-bottom:1.6rem;box-shadow:0 2px 16px rgba(26,58,92,.05)}
+
+    .field{margin-bottom:1.3rem}
+    .field label{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;color:var(--navy);margin-bottom:.5rem}
+    .field .hint{font-size:.8rem;color:var(--muted);margin-bottom:.5rem;font-style:italic}
+    textarea,input[type=date]{width:100%;font-family:'Jost',sans-serif;font-size:.95rem;font-weight:300;color:var(--text);padding:.7rem .8rem;border:1px solid var(--border);border-radius:4px;background:var(--pale);resize:vertical}
+    textarea{min-height:70px}
+    textarea:focus,input:focus{outline:none;border-color:var(--blue);background:var(--white)}
+
+    .moods{display:flex;flex-wrap:wrap;gap:.5rem}
+    .mood-btn{font-family:'Jost',sans-serif;font-size:.82rem;letter-spacing:.03em;padding:.5rem 1rem;border:1px solid var(--border);border-radius:20px;background:var(--white);color:var(--muted);cursor:pointer;transition:all .2s}
+    .mood-btn:hover{border-color:var(--blue);color:var(--navy)}
+    .mood-btn.sel{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+    .row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .btn{font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:.85rem 2rem;border:none;border-radius:2px;cursor:pointer;transition:background .25s,transform .2s}
+    .btn-primary{background:var(--navy);color:var(--white)}
+    .btn-primary:hover{background:var(--blue);transform:translateY(-1px)}
+    .btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--navy)}
+    .btn-ghost:hover{background:var(--navy);color:var(--white)}
+    .saved-note{color:var(--sage);font-size:.85rem;font-weight:500}
+
+    .entries-head{display:flex;align-items:baseline;justify-content:space-between;margin:2.6rem 0 1rem}
+    .entries-head h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--navy)}
+    .entries-head span{font-size:.82rem;color:var(--muted)}
+
+    .entry{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:4px;padding:1.2rem 1.3rem;margin-bottom:1rem}
+    .entry .e-date{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center}
+    .entry .e-mood{display:inline-block;background:var(--sage-lt);color:var(--sage);font-size:.78rem;padding:.15rem .7rem;border-radius:12px;margin-bottom:.6rem}
+    .entry .e-q{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--navy);margin-top:.6rem}
+    .entry .e-a{font-size:.92rem;white-space:pre-wrap}
+    .del{background:none;border:none;color:var(--rose);cursor:pointer;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+    .del:hover{text-decoration:underline}
+    .empty{text-align:center;color:var(--muted);font-style:italic;padding:2rem 0}
+
+    .support{background:var(--gold-lt);border:1px solid var(--gold);border-radius:6px;padding:1.2rem 1.4rem;margin-top:2.4rem;font-size:.9rem;color:#7a5a1e}
+    .support strong{color:var(--navy)}
+
+    footer.foot{text-align:center;padding:2rem 5%;color:var(--muted);font-size:.8rem}
+    footer.foot a{color:var(--blue);text-decoration:none}
+
+    @media(max-width:520px){
+      header.top h1{font-size:1.7rem}
+      .card{padding:1.4rem 1.1rem}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="eyebrow">Private &amp; kept on this device</div>
+    <h1>My Journal</h1>
+    <p>A quiet space to check in with yourself</p>
+  </header>
+
+  <div class="wrap">
+    <form class="card" id="journalForm">
+      <div class="field">
+        <label for="entryDate">Date</label>
+        <input type="date" id="entryDate">
+      </div>
+
+      <div class="field">
+        <label>How are you feeling?</label>
+        <div class="hint">Tap one that fits — or write your own below.</div>
+        <div class="moods" id="moods">
+          <button type="button" class="mood-btn" data-mood="Great">😀 Great</button>
+          <button type="button" class="mood-btn" data-mood="Good">🙂 Good</button>
+          <button type="button" class="mood-btn" data-mood="Okay">😐 Okay</button>
+          <button type="button" class="mood-btn" data-mood="Low">😔 Low</button>
+          <button type="button" class="mood-btn" data-mood="Struggling">😞 Struggling</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="feeling">In your own words</label>
+        <textarea id="feeling" placeholder="How are you feeling today?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="wentWell">What went well today?</label>
+        <textarea id="wentWell" placeholder="Anything at all, big or small…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="grateful">What are you grateful for?</label>
+        <textarea id="grateful" placeholder="A person, a moment, a thing…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="win">One small win today?</label>
+        <textarea id="win" placeholder="Something you're glad you did."></textarea>
+      </div>
+
+      <div class="row">
+        <button type="submit" class="btn btn-primary">Save entry</button>
+        <button type="button" class="btn btn-ghost" id="clearBtn">Clear</button>
+        <span class="saved-note" id="savedNote" style="display:none">Saved ✓</span>
+      </div>
+    </form>
+
+    <div class="support">
+      If low mood lasts more than a couple of weeks or feels heavy, please talk to a
+      <strong>parent, carer, GP or trusted adult</strong>. Asking for help is a strength.
+    </div>
+
+    <div class="entries-head">
+      <h2>Past entries</h2>
+      <span id="entryCount"></span>
+    </div>
+    <div id="entries"></div>
+  </div>
+
+  <footer class="foot">
+    Your entries are saved only in this browser on this device — nothing is sent anywhere.
+    <br>Use <a href="#" id="exportLink">export</a> to save a backup copy.
+  </footer>
+
+  <script>
+    const KEY = 'hof_journal_entries_v1';
+    const $ = id => document.getElementById(id);
+    const dateInput = $('entryDate');
+
+    // default to today
+    function todayISO(){ return new Date().toISOString().slice(0,10); }
+    dateInput.value = todayISO();
+
+    // mood selection
+    let selectedMood = '';
+    document.querySelectorAll('.mood-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        if(b.classList.contains('sel')){ b.classList.remove('sel'); selectedMood=''; return; }
+        document.querySelectorAll('.mood-btn').forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel'); selectedMood = b.dataset.mood;
+      });
+    });
+
+    function load(){
+      try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+      catch(e){ return []; }
+    }
+    function save(list){ localStorage.setItem(KEY, JSON.stringify(list)); }
+
+    function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+    function fmtDate(iso){
+      try{ return new Date(iso+'T00:00:00').toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }
+      catch(e){ return iso; }
+    }
+
+    function render(){
+      const list = load().slice().sort((a,b)=> b.date.localeCompare(a.date) || b.id-a.id);
+      const box = $('entries');
+      $('entryCount').textContent = list.length ? list.length + (list.length===1?' entry':' entries') : '';
+      if(!list.length){ box.innerHTML = '<div class="empty">No entries yet — your first check-in will appear here.</div>'; return; }
+      box.innerHTML = list.map(e=>{
+        const parts = [];
+        if(e.feeling)  parts.push(`<div class="e-q">How are you feeling?</div><div class="e-a">${esc(e.feeling)}</div>`);
+        if(e.wentWell) parts.push(`<div class="e-q">What went well?</div><div class="e-a">${esc(e.wentWell)}</div>`);
+        if(e.grateful) parts.push(`<div class="e-q">Grateful for</div><div class="e-a">${esc(e.grateful)}</div>`);
+        if(e.win)      parts.push(`<div class="e-q">One small win</div><div class="e-a">${esc(e.win)}</div>`);
+        return `<div class="entry">
+          <div class="e-date"><span>${fmtDate(e.date)}</span><button class="del" data-id="${e.id}">Delete</button></div>
+          ${e.mood ? `<span class="e-mood">${esc(e.mood)}</span>` : ''}
+          ${parts.join('')}
+        </div>`;
+      }).join('');
+      box.querySelectorAll('.del').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          if(!confirm('Delete this entry? This cannot be undone.')) return;
+          const id = Number(btn.dataset.id);
+          save(load().filter(x=>x.id!==id));
+          render();
+        });
+      });
+    }
+
+    function resetForm(){
+      $('feeling').value=''; $('wentWell').value=''; $('grateful').value=''; $('win').value='';
+      document.querySelectorAll('.mood-btn').forEach(x=>x.classList.remove('sel'));
+      selectedMood=''; dateInput.value = todayISO();
+    }
+
+    $('journalForm').addEventListener('submit', ev=>{
+      ev.preventDefault();
+      const entry = {
+        id: Date.now(),
+        date: dateInput.value || todayISO(),
+        mood: selectedMood,
+        feeling: $('feeling').value.trim(),
+        wentWell: $('wentWell').value.trim(),
+        grateful: $('grateful').value.trim(),
+        win: $('win').value.trim()
+      };
+      if(!entry.mood && !entry.feeling && !entry.wentWell && !entry.grateful && !entry.win){
+        alert('Add a mood or write something before saving.');
+        return;
+      }
+      const list = load(); list.push(entry); save(list);
+      resetForm();
+      const note = $('savedNote'); note.style.display='inline';
+      setTimeout(()=>{ note.style.display='none'; }, 2500);
+      render();
+    });
+
+    $('clearBtn').addEventListener('click', resetForm);
+
+    $('exportLink').addEventListener('click', ev=>{
+      ev.preventDefault();
+      const list = load();
+      if(!list.length){ alert('No entries to export yet.'); return; }
+      const blob = new Blob([JSON.stringify(list,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'my-journal-backup.json'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    render();
+  </script>
+</body>
+</html>
