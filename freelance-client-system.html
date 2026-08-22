@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelance Web Design — Client Acquisition Operating Manual</title>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --panel2:#f0f2f5; --line:#dde1e7;
+  --text:#111725; --muted:#5b6676; --faint:#8a94a3;
+  --acc:#1f6feb; --acc-soft:#e6efff; --acc2:#b45309; --acc2-soft:#fdf1dc;
+  --good:#15803d; --good-soft:#e3f5e9; --warn:#a16207; --warn-soft:#fdf6e0;
+  --bad:#b42318; --bad-soft:#fdeceb;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 16px rgba(16,24,40,.05);
+  --radius:12px; --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+html[data-theme="dark"]{
+  --bg:#0d1117; --panel:#151b23; --panel2:#1b232d; --line:#2a3440;
+  --text:#e6edf3; --muted:#9aa7b6; --faint:#6e7d8f;
+  --acc:#58a6ff; --acc-soft:#12243d; --acc2:#f0b429; --acc2-soft:#2e2410;
+  --good:#3fb950; --good-soft:#12261a; --warn:#d29922; --warn-soft:#2a2210;
+  --bad:#f85149; --bad-soft:#2d1414;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.28);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:20px}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{line-height:1.25; margin:0 0 .5em; font-weight:700; letter-spacing:-.01em}
+h1{font-size:1.9rem}
+h2{font-size:1.5rem; margin-top:0}
+h3{font-size:1.12rem; margin-top:1.8em}
+h4{font-size:.98rem; margin-top:1.4em; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; font-size:.78rem}
+p{margin:0 0 1em}
+a{color:var(--acc)}
+code{font-family:var(--mono); font-size:.87em; background:var(--panel2); border:1px solid var(--line); padding:.1em .38em; border-radius:5px; word-break:break-word}
+ul,ol{margin:0 0 1em; padding-left:1.3em}
+li{margin:.35em 0}
+hr{border:0; border-top:1px solid var(--line); margin:2rem 0}
+
+/* ============ LAYOUT ============ */
+.app{display:flex; min-height:100vh}
+.sidebar{
+  width:262px; flex:0 0 262px; background:var(--panel); border-right:1px solid var(--line);
+  position:sticky; top:0; height:100vh; overflow-y:auto; padding:18px 0 40px;
+}
+.brand{padding:0 18px 14px; border-bottom:1px solid var(--line); margin-bottom:10px}
+.brand .logo{display:flex; align-items:center; gap:9px; font-weight:800; font-size:1rem; letter-spacing:-.02em}
+.brand .dot{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--acc),var(--acc2));flex:0 0 26px}
+.brand .sub{font-size:.74rem; color:var(--faint); margin-top:5px; line-height:1.4}
+.nav{padding:0 10px}
+.nav-group{font-size:.68rem; text-transform:uppercase; letter-spacing:.09em; color:var(--faint); padding:14px 8px 5px; font-weight:700}
+.nav a{
+  display:flex; gap:9px; align-items:baseline; padding:6px 9px; border-radius:8px;
+  color:var(--muted); text-decoration:none; font-size:.855rem; border-left:2px solid transparent;
+}
+.nav a:hover{background:var(--panel2); color:var(--text)}
+.nav a.active{background:var(--acc-soft); color:var(--acc); font-weight:600}
+.nav a .num{font-family:var(--mono); font-size:.72rem; color:var(--faint); min-width:16px}
+.nav a.active .num{color:var(--acc)}
+
+.main{flex:1; min-width:0; padding:26px 34px 90px; max-width:1080px}
+.topbar{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap}
+.btn{
+  background:var(--panel); border:1px solid var(--line); color:var(--text); border-radius:9px;
+  padding:7px 13px; font-size:.83rem; cursor:pointer; font-weight:600; font-family:inherit;
+}
+.btn:hover{background:var(--panel2)}
+.btn.primary{background:var(--acc); border-color:var(--acc); color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+
+/* ============ COMPONENTS ============ */
+section{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px 28px; margin-bottom:22px; box-shadow:var(--shadow); scroll-margin-top:16px;
+}
+.sec-head{display:flex; align-items:center; gap:12px; margin-bottom:6px; flex-wrap:wrap}
+.sec-num{
+  font-family:var(--mono); font-size:.72rem; font-weight:700; background:var(--acc-soft); color:var(--acc);
+  padding:3px 8px; border-radius:6px; letter-spacing:.04em;
+}
+.lede{color:var(--muted); font-size:.97rem; margin-bottom:1.4em}
+
+.card{background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin:0 0 14px}
+.grid{display:grid; gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+
+.callout{border-left:3px solid var(--acc); background:var(--acc-soft); padding:13px 16px; border-radius:0 9px 9px 0; margin:0 0 16px; font-size:.93rem}
+.callout.warn{border-color:var(--warn); background:var(--warn-soft)}
+.callout.bad{border-color:var(--bad); background:var(--bad-soft)}
+.callout.good{border-color:var(--good); background:var(--good-soft)}
+.callout strong:first-child{display:block; margin-bottom:3px}
+
+.steps{counter-reset:st; list-style:none; padding:0; margin:0 0 14px}
+.steps>li{
+  counter-increment:st; position:relative; padding:11px 0 11px 52px; border-bottom:1px dashed var(--line);
+}
+.steps>li:last-child{border-bottom:0}
+.steps>li::before{
+  content:"STEP " counter(st); position:absolute; left:0; top:13px; font-family:var(--mono); font-size:.6rem;
+  font-weight:700; color:var(--acc); background:var(--acc-soft); padding:3px 5px; border-radius:5px; letter-spacing:.03em;
+}
+.steps>li b{display:block}
+
+table{width:100%; border-collapse:collapse; font-size:.87rem; margin:0 0 16px}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 16px; border:1px solid var(--line); border-radius:10px}
+.tw table{margin:0; min-width:520px}
+th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--panel2); font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; position:sticky; top:0}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--panel2)}
+
+.tag{display:inline-block; font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:20px; letter-spacing:.02em; white-space:nowrap}
+.t-a{background:var(--good-soft); color:var(--good)}
+.t-b{background:var(--acc-soft); color:var(--acc)}
+.t-c{background:var(--warn-soft); color:var(--warn)}
+.t-d{background:var(--bad-soft); color:var(--bad)}
+.t-n{background:var(--panel2); color:var(--muted); border:1px solid var(--line)}
+
+/* checklists */
+.chk{list-style:none; padding:0; margin:0 0 14px}
+.chk li{display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px solid var(--line)}
+.chk li:last-child{border-bottom:0}
+.chk input{margin-top:5px; width:16px; height:16px; accent-color:var(--acc); cursor:pointer; flex:0 0 16px}
+.chk label{cursor:pointer; font-size:.92rem}
+.chk input:checked + label{color:var(--faint); text-decoration:line-through}
+
+/* templates */
+.tpl{border:1px solid var(--line); border-radius:10px; margin:0 0 14px; overflow:hidden; background:var(--panel2)}
+.tpl-head{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 14px; background:var(--panel); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.tpl-head b{font-size:.88rem}
+.tpl-head .when{font-size:.74rem; color:var(--faint)}
+.tpl pre{
+  margin:0; padding:14px 16px; font-family:var(--mono); font-size:.8rem; line-height:1.65;
+  white-space:pre-wrap; word-break:break-word; color:var(--text);
+}
+.tpl pre mark{background:var(--acc2-soft); color:var(--acc2); padding:0 3px; border-radius:3px; font-weight:600}
+.copy{font-size:.72rem; padding:4px 10px; border-radius:6px; border:1px solid var(--line); background:var(--panel2); cursor:pointer; color:var(--muted); font-weight:700; font-family:inherit}
+.copy:hover{color:var(--acc); border-color:var(--acc)}
+.copy.done{color:var(--good); border-color:var(--good)}
+
+/* calculator */
+.calc-row{display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line)}
+.calc-row:last-of-type{border-bottom:0}
+.calc-row input{width:17px;height:17px;accent-color:var(--acc);cursor:pointer;flex:0 0 17px}
+.calc-row .lbl{flex:1; font-size:.9rem}
+.calc-row .lbl small{display:block; color:var(--faint); font-size:.76rem}
+.calc-row .pts{font-family:var(--mono); font-size:.78rem; color:var(--faint); white-space:nowrap}
+.score-box{
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap; padding:16px 18px; border-radius:10px;
+  background:var(--panel2); border:1px solid var(--line); margin-top:14px;
+}
+.score-num{font-size:2.6rem; font-weight:800; line-height:1; font-family:var(--mono)}
+.score-meta{flex:1; min-width:180px}
+.score-verdict{font-weight:700; font-size:1.02rem}
+.score-action{font-size:.86rem; color:var(--muted)}
+.bar{height:8px; border-radius:20px; background:var(--line); overflow:hidden; margin-top:9px}
+.bar span{display:block; height:100%; width:0; border-radius:20px; transition:width .25s ease, background .25s}
+
+/* misc */
+.kpi{background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:13px 15px}
+.kpi .n{font-size:1.5rem; font-weight:800; font-family:var(--mono); line-height:1.1}
+.kpi .l{font-size:.76rem; color:var(--muted); margin-top:3px}
+.progress-pill{font-size:.75rem; font-family:var(--mono); color:var(--muted); background:var(--panel2); border:1px solid var(--line); padding:3px 9px; border-radius:20px}
+details{border:1px solid var(--line); border-radius:10px; padding:12px 15px; margin:0 0 10px; background:var(--panel2)}
+details summary{cursor:pointer; font-weight:600; font-size:.92rem}
+details[open] summary{margin-bottom:9px}
+.small{font-size:.85rem; color:var(--muted)}
+.mono{font-family:var(--mono); font-size:.83em}
+.day-col{border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.day-col h4{margin:0; padding:9px 13px; background:var(--panel2); border-bottom:1px solid var(--line); color:var(--text); font-size:.8rem; letter-spacing:.04em}
+.day-col .body{padding:12px 13px}
+.menu-btn{display:none}
+
+@media(max-width:900px){
+  .sidebar{position:fixed; left:0; top:0; z-index:40; transform:translateX(-100%); transition:transform .2s; box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{padding:18px 16px 80px}
+  .menu-btn{display:inline-block}
+  section{padding:20px 17px}
+  h1{font-size:1.5rem}
+}
+@media print{.sidebar,.topbar,.copy{display:none} section{break-inside:avoid; box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo"><span class="dot"></span> Client Engine</div>
+    <div class="sub">Freelance web design &mdash; a literal operating manual. Built for &pound;100&ndash;&pound;200 sites.</div>
+  </div>
+  <nav class="nav" id="nav">
+    <div class="nav-group">Get moving</div>
+    <a href="#start"><span class="num">&#9656;</span> Start Here</a>
+    <a href="#week1"><span class="num">7d</span> First 7 Days</a>
+    <div class="nav-group">The system</div>
+    <a href="#niche"><span class="num">01</span> Choosing a niche</a>
+    <a href="#finding"><span class="num">02</span> Finding clients</a>
+    <a href="#scoring"><span class="num">03</span> Website scoring</a>
+    <a href="#calculator"><span class="num">&#9878;</span> Score calculator</a>
+    <a href="#sheet"><span class="num">04</span> Lead list</a>
+    <a href="#email"><span class="num">05</span> Cold email</a>
+    <a href="#automation"><span class="num">06</span> Automation &amp; tools</a>
+    <a href="#social"><span class="num">07</span> Social outreach</a>
+    <a href="#workflow"><span class="num">08</span> The workflow</a>
+    <a href="#routine"><span class="num">09</span> Daily routine</a>
+    <a href="#firstclients"><span class="num">10</span> First 1&ndash;5 clients</a>
+    <a href="#pricing"><span class="num">11</span> Pricing</a>
+    <a href="#closing"><span class="num">12</span> Closing</a>
+    <a href="#aftersale"><span class="num">13</span> After the sale</a>
+    <a href="#delivery"><span class="num">14</span> Delivery</a>
+    <a href="#legal"><span class="num">15</span> Legal &amp; safety</a>
+    <div class="nav-group">Run it daily</div>
+    <a href="#speed"><span class="num">&#9889;</span> Going faster</a>
+    <a href="#daily"><span class="num">&#9745;</span> Daily checklist</a>
+    <a href="#numbers"><span class="num">&#8721;</span> The numbers</a>
+  </nav>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<main class="main">
+<div class="topbar">
+  <div>
+    <h1 style="margin-bottom:2px">Client Acquisition Operating Manual</h1>
+    <div class="small">Find &rarr; score &rarr; contact &rarr; follow up &rarr; close &rarr; build &rarr; deliver. Everything in order.</div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">&#9776; Menu</button>
+    <button class="btn" id="themeBtn" onclick="toggleTheme()">&#9788; Light</button>
+    <button class="btn" onclick="window.print()">&#128424; Print</button>
+  </div>
+</div>
+
+<!-- ============ START HERE ============ -->
+<section id="start">
+  <div class="sec-head"><span class="sec-num">START</span><h2>Start Here</h2></div>
+  <p class="lede">Read this page once. Then work top-to-bottom. Do not skip to the email templates &mdash; the templates only work because of the steps in front of them.</p>
+
+  <div class="callout">
+    <strong>The one-sentence version of this business</strong>
+    You find local service businesses whose website is bad or missing, you prove you can fix it before you ask for money, and you charge a price so low that saying yes is easy.
+  </div>
+
+  <h3>What you are actually selling</h3>
+  <p>You are <em>not</em> selling "a website". Plumbers do not want a website. They want the phone to ring. Your product is: <strong>a fast, mobile-friendly page that makes their business look legitimate and makes it obvious how to contact them &mdash; handed over as files they own forever, with no monthly fee.</strong> That last part is your genuine advantage over every agency charging £49/month forever.</p>
+
+  <h3>Your honest position as a 16-year-old</h3>
+  <p>You do not need to hide your age and you should not. What you need is <strong>proof</strong>. A 16-year-old who sends a business a screenshot of a redesigned version of their own homepage is more convincing than a 40-year-old who sends a paragraph about "leveraging digital solutions". Proof beats credentials. This whole manual is built around producing proof cheaply and repeatedly.</p>
+
+  <div class="callout warn">
+    <strong>Never do this</strong>
+    Never claim to be older than you are, never invent a fake company, fake team, fake years of experience, or fake client list. Beyond the ethics: it is the single fastest way to lose a client mid-project and it can void your right to be paid. Age is not your weak point. Lying about it would be.
+  </div>
+
+  <h3>The 5 things you must set up before you contact anyone</h3>
+  <ol class="chk" data-store="start">
+    <li><input type="checkbox" id="s1"><label for="s1"><b>A demo site for your chosen niche.</b> Not your existing portfolio site &mdash; a fake business in the niche you're targeting (e.g. "Apex Mobile Valeting"). Takes one day. This is the single highest-leverage thing on this list. See <a href="#firstclients">Section 10</a>.</label></li>
+    <li><input type="checkbox" id="s2"><label for="s2"><b>Somewhere to send people.</b> A single page listing your 2 example sites, your prices, and a contact form or email link. Host it free on GitHub Pages, Netlify or Cloudflare Pages.</label></li>
+    <li><input type="checkbox" id="s3"><label for="s3"><b>A dedicated email address</b> you only use for this, e.g. <code>yourname@yourdomain.co.uk</code> or a clean Gmail. Real name, real photo, a signature with a link.</label></li>
+    <li><input type="checkbox" id="s4"><label for="s4"><b>Your lead spreadsheet</b>, built from the column list in <a href="#sheet">Section 4</a>.</label></li>
+    <li><input type="checkbox" id="s5"><label for="s5"><b>A conversation with a parent or guardian</b> about money, contracts and tax before your first paid job. Not optional &mdash; see <a href="#legal">Section 15</a>. You will likely need their help to hold a payment account.</label></li>
+  </ol>
+
+  <h3>How this manual is meant to be used</h3>
+  <div class="grid g3">
+    <div class="card"><h4 style="margin-top:0">Once</h4><p class="small" style="margin:0">Sections 1, 4, 6, 11, 15. Setup decisions you make one time.</p></div>
+    <div class="card"><h4 style="margin-top:0">Every day</h4><p class="small" style="margin:0">Sections 2, 3, 5, 8, 9. The find-score-contact loop.</p></div>
+    <div class="card"><h4 style="margin-top:0">When a lead replies</h4><p class="small" style="margin:0">Sections 12, 13, 14. Closing and delivering.</p></div>
+  </div>
+</section>
+
+<!-- ============ FIRST 7 DAYS ============ -->
+<section id="week1">
+  <div class="sec-head"><span class="sec-num">7 DAYS</span><h2>First 7 Days Action Plan</h2>
+  <span class="progress-pill" id="w1prog">0 / 0 done</span></div>
+  <p class="lede">Roughly 1&ndash;2 hours a day. By the end of day 7 you will have sent your first 40&ndash;60 pieces of outreach and have a system that repeats itself. Tick items as you go &mdash; progress saves in this browser.</p>
+
+  <div class="grid g2">
+    <div class="day-col"><h4>DAY 1 &mdash; Pick and prepare</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d1a"><label for="d1a">Read Section 1 and commit to <b>one</b> niche and <b>one</b> starting town/city. Write both at the top of your spreadsheet.</label></li>
+        <li><input type="checkbox" id="d1b">
+        <label for="d1b">Create the lead spreadsheet with the exact columns from Section 4. Add the dropdown lists.</label></li>
+        <li><input type="checkbox" id="d1c"><label for="d1c">Set up your dedicated email address + signature.</label></li>
+      </ul></div></div>
+
+    <div class="day-col"><h4>DAY 2 &mdash; Build the niche demo</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d2a"><label for="d2a">Build a one-page demo site for a made-up business in your niche. Hero, services, gallery, reviews, big call-to-action, click-to-call, contact form, mobile-perfect.</label></li>
+        <li><input type="checkbox" id="d2b"><label for="d2b">Deploy it free (Netlify drag-and-drop is fastest). Label it clearly as a demo.</label></li>
+        <li><input type="checkbox" id="d2c"><label for="d2c">Save it as a reusable template folder &mdash; this becomes the base for every client build.</label></li>
+      </ul></div></div>
+
+    <div class="day-col"><h4>DAY 3 &mdash; Build the lead list</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d3a"><label for="d3a">Google Maps method (Section 2). Collect <b>40 businesses</b> in your niche + town.</label></li>
+        <li><input type="checkbox" id="d3b"><label for="d3b">Score each website using Section 3. Keep only A and B grades.</label></li>
+        <li><input type="checkbox" id="d3c"><label for="d3c">Find an email for as many as possible. Aim for 25+ with a contact route.</label></li>
+      </ul></div></div>
+
+    <div class="day-col"><h4>DAY 4 &mdash; First outreach</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d4a"><label for="d4a">Write your 2 core email templates into a Google Doc, personalisation slots marked.</label></li>
+        <li><input type="checkbox" id="d4b"><label for="d4b">Send <b>15 emails</b> manually from Gmail. One at a time. Personalise line 1 of every single one.</label></li>
+        <li><input type="checkbox" id="d4c"><label for="d4c">Log every send in the spreadsheet with the date and set a follow-up date +3 days.</label></li>
+      </ul></div></div>
+
+    <div class="day-col"><h4>DAY 5 &mdash; Add the mockup weapon</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d5a"><label for="d5a">Pick your 5 highest-scoring prospects. For each, spend ~25 minutes making a redesigned hero section of <em>their</em> homepage using their real name, colours and photos.</label></li>
+        <li><input type="checkbox" id="d5b"><label for="d5b">Screenshot each one. Send Template C (the mockup email) to those 5.</label></li>
+        <li><input type="checkbox" id="d5c"><label for="d5c">Send 15 more standard emails to the rest of the list.</label></li>
+      </ul></div></div>
+
+    <div class="day-col"><h4>DAY 6 &mdash; Second channel</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d6a"><label for="d6a">Find 15 businesses in your niche that have a Facebook or Instagram page but <b>no website at all</b>. These are your best prospects.</label></li>
+        <li><input type="checkbox" id="d6b"><label for="d6b">Warm them up the right way (Section 7) &mdash; do not open with a pitch.</label></li>
+        <li><input type="checkbox" id="d6c"><label for="d6c">Send your first follow-ups to anyone from Day 4 who hasn't replied.</label></li>
+      </ul></div></div>
+
+    <div class="day-col"><h4>DAY 7 &mdash; Review and systemise</h4><div class="body">
+      <ul class="chk" data-store="w1">
+        <li><input type="checkbox" id="d7a"><label for="d7a">Count: leads found, emails sent, opens/replies, calls booked. Write the numbers down.</label></li>
+        <li><input type="checkbox" id="d7b"><label for="d7b">Rewrite whichever template performed worst. Change the subject line first.</label></li>
+        <li><input type="checkbox" id="d7c"><label for="d7c">Save your best-performing message as a text snippet (Section 16) so you never retype it.</label></li>
+        <li><input type="checkbox" id="d7d"><label for="d7d">Queue next week's 60 leads so Monday starts with zero friction.</label></li>
+      </ul></div></div>
+  </div>
+
+  <div class="callout good">
+    <strong>Realistic week-1 outcome</strong>
+    ~60 leads researched, ~40 messages sent, 2&ndash;6 replies, 0&ndash;1 sales. If you get zero replies in week 1, that is normal and not a signal to quit &mdash; it is a signal to add mockups and increase volume. Most beginners quit somewhere around day 9.
+  </div>
+</section>
+
+<!-- ============ 1 NICHE ============ -->
+<section id="niche">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Choosing a niche</h2></div>
+  <p class="lede">A niche is not a limitation, it is a shortcut. Pick one and every message, demo and objection answer gets reusable. Pick "any business" and you retype everything forever.</p>
+
+  <h3>What makes a niche good for a £100&ndash;£200 website</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Signal</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td><b>The owner answers their own phone</b></td><td>No marketing department, no procurement, no committee. One person can say yes in a single conversation. This is the most important signal of all.</td></tr>
+      <tr><td><b>Many have no website, or a Facebook page instead</b></td><td>You are selling something they don't have rather than replacing something they paid for. Far easier sale.</td></tr>
+      <tr><td><b>The work is visual</b></td><td>Driveways, gardens, hair, cars, cakes. Their existing photos do the design work for you and the "before/after" is obvious.</td></tr>
+      <tr><td><b>One job is worth more than your fee</b></td><td>A £180 site pays for itself with one driveway job (£1,500+) or one wedding cake. Compare to a market stall where £180 is weeks of profit.</td></tr>
+      <tr><td><b>They compete locally, not nationally</b></td><td>They only need to beat 8 local rivals, not rank against Amazon. A simple site genuinely helps them.</td></tr>
+      <tr><td><b>Easy to find in bulk on Google Maps</b></td><td>You need hundreds of them findable in 20 minutes.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Niche scoreboard</h3>
+  <p>Graded for a beginner selling a hand-over-the-files website at £100&ndash;£200.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Niche</th><th>Grade</th><th>Why / watch out for</th></tr></thead>
+    <tbody>
+      <tr><td><b>Mobile car valeting &amp; detailing</b></td><td><span class="tag t-a">BEST START</span></td><td>Huge numbers of them, usually Instagram-only, extremely visual, young owners who reply to messages, one detail job = £150+. Perfect fit.</td></tr>
+      <tr><td><b>Painters &amp; decorators</b></td><td><span class="tag t-a">A</span></td><td>Everywhere, mostly no site or a 2012 site, before/after photos built in, jobs worth £800+.</td></tr>
+      <tr><td><b>Driveways, paving &amp; landscaping</b></td><td><span class="tag t-a">A</span></td><td>Highest job values of any easy niche. Many run on Checkatrade alone and hate the fees. Very visual.</td></tr>
+      <tr><td><b>Dog groomers</b></td><td><span class="tag t-a">A</span></td><td>Almost all Facebook-only. Owner-run, friendly, cute photos, price-conscious but £150 is affordable. Great first-week niche.</td></tr>
+      <tr><td><b>Mobile beauty / nails / lashes / barbers</b></td><td><span class="tag t-a">A</span></td><td>Instagram-native, respond to DMs, understand "I need a link in bio that isn't just Linktree".</td></tr>
+      <tr><td><b>Tree surgeons, fencing, pressure washing, gutter cleaning</b></td><td><span class="tag t-b">B+</span></td><td>Same profile as decorators, slightly fewer of them per town.</td></tr>
+      <tr><td><b>Personal trainers &amp; small gyms</b></td><td><span class="tag t-b">B</span></td><td>Plenty of them and they buy fast, but many use Linktree and think that's enough. Sell the booking + credibility angle.</td></tr>
+      <tr><td><b>Man-and-van / removals / house clearance</b></td><td><span class="tag t-b">B</span></td><td>Terrible websites across the board. Slightly harder to reach by email.</td></tr>
+      <tr><td><b>Cake makers, caterers, florists, photographers</b></td><td><span class="tag t-b">B</span></td><td>Very visual and lovely to work with; sometimes lower budgets. Photographers may push back ("I'll build it myself").</td></tr>
+      <tr><td><b>Driving instructors, tutors, music teachers</b></td><td><span class="tag t-c">C+</span></td><td>Cheap and easy to reach but often genuinely full of students and don't need marketing.</td></tr>
+      <tr><td><b>Restaurants, cafés, takeaways</b></td><td><span class="tag t-c">C</span></td><td>Thin margins, gatekeepers, they want online ordering (which you're not offering), and the owner is busy at every hour you'd call.</td></tr>
+      <tr><td><b>Dentists, solicitors, accountants, estate agents, clinics</b></td><td><span class="tag t-d">AVOID (for now)</span></td><td>Regulated content, they expect ongoing SEO and support, they have existing agencies, and a £150 price makes you look unserious to them. Come back at £1,500.</td></tr>
+      <tr><td><b>Anything needing e-commerce or bookings-with-payment</b></td><td><span class="tag t-d">AVOID</span></td><td>Out of scope for static HTML/CSS/JS handover. Scope creep will eat you alive.</td></tr>
+      <tr><td><b>Startups / "founders" / crypto / coaching gurus</b></td><td><span class="tag t-d">AVOID</span></td><td>Endless revisions, no money, want equity, will ghost you.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout good">
+    <strong>Your clear recommendation: start with mobile car valeting &amp; detailing</strong>
+    Reasons, in order: (1) the overwhelming majority operate from an Instagram page with no website at all, so you're not competing with an existing site; (2) they already have hundreds of good photos, so your build is fast and looks stunning; (3) owners are typically 20&ndash;35, permanently on their phone, and actually reply to DMs and emails; (4) a single ceramic-coating or full-detail job is £150&ndash;£600, so your fee is one job; (5) once you've built two of them, the third takes you four hours because it's the same template with different photos.
+    <br><br><b>Second choice if your area is saturated:</b> painters &amp; decorators. <b>Third:</b> dog groomers.
+  </div>
+
+  <h3>How to lock in your niche in 20 minutes</h3>
+  <ol class="steps">
+    <li><b>Open Google Maps and search <code>mobile car valeting near [your town]</code>.</b> Count how many results appear before the list gets thin.</li>
+    <li><b>Open the first 10 listings.</b> Count how many have no "Website" button at all.</li>
+    <li><b>Apply the go/no-go test.</b> If 4 or more out of 10 have no website, this niche + area works. If fewer than 4, either widen to a bigger city or move to the next niche on the list.</li>
+    <li><b>Repeat for your second-choice niche</b> so you have a backup when the first list runs dry.</li>
+    <li><b>Write it down.</b> Cell A1 of your spreadsheet: <code>NICHE: mobile car valeting &mdash; AREA: Manchester, Leeds, Liverpool</code>. Do not change it for at least 3 weeks. Niche-hopping is the number one reason beginners get zero results.</li>
+  </ol>
+
+  <div class="callout warn">
+    <strong>On "clients anywhere in the world"</strong>
+    You <em>can</em> work with anyone, but you should <em>prospect</em> locally first &mdash; the same country and ideally somewhere you can name in the email ("I'm based in [county]"). Local relevance is what makes a cold message not feel like spam, and it's what lets you say "I noticed you're the only detailer in [town] without a site." Expand geographically only after your message is proven: same niche, new city, same script. Do that <em>before</em> you try a new niche.
+  </div>
+</section>
+
+<!-- ============ 2 FINDING CLIENTS ============ -->
+<section id="finding">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Finding potential clients</h2></div>
+  <p class="lede">Six sources, ranked by how much money you'll make per hour spent there. Start with method A. Do not open Apollo until method A stops producing.</p>
+
+  <div class="grid g4" style="margin-bottom:18px">
+    <div class="kpi"><div class="n">A</div><div class="l">Google Maps &mdash; your main engine</div></div>
+    <div class="kpi"><div class="n">B</div><div class="l">Instagram / Facebook &mdash; the no-website goldmine</div></div>
+    <div class="kpi"><div class="n">C</div><div class="l">Directories &mdash; volume and phone numbers</div></div>
+    <div class="kpi"><div class="n">D</div><div class="l">Google search operators &mdash; surgical</div></div>
+  </div>
+
+  <h3>Method A &mdash; Google Maps (do this first, every time)</h3>
+  <ol class="steps">
+    <li><b>Open <code>google.com/maps</code> in a desktop browser.</b> Phone is far slower for this; use a laptop.</li>
+    <li><b>Search your exact string:</b> <code>mobile car valeting Stockport</code>. Not "car wash" &mdash; use the words the businesses use about themselves.</li>
+    <li><b>Zoom out slightly so the map covers the whole town, then press the "Search this area" button.</b> This forces Maps to return the full local list instead of just the closest few.</li>
+    <li><b>Click the first result, then use the down-arrow key</b> to move through listings one at a time. The left panel updates without a page reload &mdash; this is the fastest possible way to scan.</li>
+    <li><b>For each listing, look for exactly three things:</b> (1) is there a <b>Website</b> button? (2) how many reviews and what rating? (3) is there a phone number?</li>
+    <li><b>Apply the qualification filter</b> (table below). If it passes, it goes in the sheet. If not, skip instantly &mdash; do not agonise.</li>
+    <li><b>Copy into your sheet:</b> business name, phone, the Maps URL, website URL (or "NONE"), review count, and the area. Takes ~40 seconds per business by hand.</li>
+    <li><b>When the town runs dry, change the town, not the niche.</b> Work outwards: your town &rarr; nearest city &rarr; surrounding towns. A city gives you 60&ndash;150 businesses in one niche.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>The highest-value 10 seconds in this entire manual</strong>
+    A Maps listing with <b>20+ reviews, 4.5+ stars, and NO website button</b> is your perfect prospect. They are clearly busy and clearly good, they have social proof to put on a site, and they own nothing to compare you against. Flag these in your sheet immediately and contact them the same day. Everything else in this manual is optimisation; this is the actual business.
+  </div>
+
+  <h4>Qualification filter &mdash; who is worth contacting</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Contact them if&hellip;</th><th>Skip them if&hellip;</th></tr></thead>
+    <tbody>
+      <tr><td>No website button on Maps</td><td>They are a national chain or franchise</td></tr>
+      <tr><td>Website is clearly old (see Section 3)</td><td>Their site is genuinely modern and fast &mdash; you'd be wasting both your time</td></tr>
+      <tr><td>Website link goes to a Facebook page or Linktree</td><td>Zero reviews and no photos &mdash; may not be trading</td></tr>
+      <tr><td>4+ star rating with real recent reviews (they're trading and liked)</td><td>Last review was 4+ years ago</td></tr>
+      <tr><td>Photos exist that you could use in a build</td><td>Business is listed at a big office block / obvious head office</td></tr>
+      <tr><td>Independent, owner's name visible anywhere</td><td>They already advertise an in-house marketing team or agency in the footer</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Search strings to work through (swap the town)</h4>
+  <p class="small">Run each of these in Maps for one city, and you'll have several hundred qualified leads without ever touching a paid tool.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Trades &amp; outdoor</th><th>Vehicle</th><th>Beauty &amp; personal</th><th>Home &amp; other</th></tr></thead>
+    <tbody>
+      <tr><td>painter and decorator [town]</td><td>mobile car valeting [town]</td><td>dog groomer [town]</td><td>oven cleaning [town]</td></tr>
+      <tr><td>driveway paving [town]</td><td>car detailing [town]</td><td>mobile hairdresser [town]</td><td>man and van [town]</td></tr>
+      <tr><td>landscape gardener [town]</td><td>mobile mechanic [town]</td><td>nail technician [town]</td><td>house clearance [town]</td></tr>
+      <tr><td>tree surgeon [town]</td><td>alloy wheel refurbishment [town]</td><td>barber shop [town]</td><td>carpet cleaning [town]</td></tr>
+      <tr><td>fencing contractor [town]</td><td>car body repair [town]</td><td>personal trainer [town]</td><td>window cleaner [town]</td></tr>
+      <tr><td>pressure washing [town]</td><td>tyre fitting mobile [town]</td><td>lash technician [town]</td><td>locksmith [town]</td></tr>
+      <tr><td>gutter cleaning [town]</td><td>car tuning garage [town]</td><td>massage therapist [town]</td><td>removals [town]</td></tr>
+      <tr><td>artificial grass installer [town]</td><td>vehicle wrapping [town]</td><td>tattoo studio [town]</td><td>cake maker [town]</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Method B &mdash; Instagram &amp; Facebook (where the no-website businesses live)</h3>
+  <p>A business with 3,000 Instagram followers and no website is the easiest sale in this manual. They already believe in marketing, they already have content, and they already know their Linktree looks amateur.</p>
+  <ol class="steps">
+    <li><b>Instagram search:</b> tap search and enter <code>#carvaletingmanchester</code>, <code>#manchesterdetailing</code>, <code>#mobilevaletinguk</code>. Also search places: tap the <b>Places</b> tab and pick your town.</li>
+    <li><b>Open each account and check the bio link.</b> No link, or a Linktree, or a <code>linktr.ee</code>/<code>beacons</code> URL = prospect. A real domain = check it with the scoring system instead.</li>
+    <li><b>Check they're active:</b> posted within the last 30 days. Dead accounts waste your follow-ups.</li>
+    <li><b>Look for the email button.</b> Instagram Business profiles have an "Email" contact button &mdash; that's a public business email, use it. This is often easier than any email-finding tool.</li>
+    <li><b>Facebook:</b> search the business type + town, then filter results to <b>Pages</b>. Facebook Pages show a Website field, phone and email in the About tab &mdash; often more complete than Instagram.</li>
+    <li><b>Local Facebook groups</b> (e.g. "Stockport Recommendations", "[Town] Small Businesses") are dense with tradespeople advertising themselves. Read the group rules before posting anything &mdash; most ban unsolicited promotion but allow you to reply when someone asks for a recommendation.</li>
+    <li><b>Log the handle in your sheet</b> in the Social column, even when you also have an email. Two channels doubles your chance of a reply.</li>
+  </ol>
+
+  <h3>Method C &mdash; Business directories</h3>
+  <p>Slower per lead than Maps but they hand you phone numbers and sometimes emails, and businesses that pay for directory listings have already proved they'll pay for marketing.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Directory</th><th>Best for</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Yell.com</b></td><td>UK, all trades</td><td>Huge, has a "no website" gap you can spot instantly. Many listings are stale &mdash; verify on Maps.</td></tr>
+      <tr><td><b>Checkatrade / TrustATrader / Rated People</b></td><td>Trades with money</td><td>These people pay £70&ndash;£100+/month for leads. Strong angle: "you're renting leads &mdash; a site of your own earns them free."</td></tr>
+      <tr><td><b>Bark.com</b></td><td>Services of every kind</td><td>Same angle as above. Note Bark is pay-per-lead so these owners are demonstrably marketing-aware.</td></tr>
+      <tr><td><b>FreeIndex / Cylex / Thomson Local / Scoot</b></td><td>Bulk lists</td><td>Free, often list emails openly. Data quality is mediocre &mdash; always verify the business still trades.</td></tr>
+      <tr><td><b>Nextdoor</b></td><td>Very local micro-businesses</td><td>Genuinely tiny operators, often literally zero online presence.</td></tr>
+      <tr><td><b>Companies House (UK)</b></td><td>Verifying a business is real</td><td>Free. Gives registered name, incorporation date, and directors' names &mdash; a legitimate way to find the <em>owner's real name</em> for personalising an email.</td></tr>
+      <tr><td><b>Google Business Profile itself</b></td><td>Everything</td><td>Reviews often literally say the owner's name: "Dave was brilliant." Free personalisation, straight from the source.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Method D &mdash; Google search operators</h3>
+  <p>Paste these into normal Google. They surface businesses that Maps buries.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Query</th><th>What it finds</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">"mobile valeting" "Manchester" -site:facebook.com -site:yell.com</td><td>Independent sites, filtering out the directory noise</td></tr>
+      <tr><td class="mono">site:facebook.com "car valeting" "Manchester"</td><td>Facebook-only businesses &mdash; i.e. no website</td></tr>
+      <tr><td class="mono">site:instagram.com "detailing" "Leeds"</td><td>Same for Instagram</td></tr>
+      <tr><td class="mono">"painter and decorator" Manchester "copyright 2015"</td><td>Sites with a stale footer year &mdash; almost always abandoned</td></tr>
+      <tr><td class="mono">"powered by Wix" "dog grooming" Manchester</td><td>DIY builder sites &mdash; often half-finished, and the owner already tried and gave up</td></tr>
+      <tr><td class="mono">intitle:"under construction" OR intitle:"coming soon" landscaping Manchester</td><td>Abandoned website projects. Excellent prospects.</td></tr>
+      <tr><td class="mono">"driveways" Manchester -www</td><td>Loosens results towards smaller/odd listings</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Also worth 30 seconds: search your niche + town on Google and look at the businesses on <b>page 2 and 3</b>. They're trading but losing to page 1 &mdash; a real, specific problem you can name in your email.</p>
+
+  <h3>Method E &mdash; Apollo and lead-generation tools</h3>
+  <div class="callout warn">
+    <strong>Read this before signing up for anything</strong>
+    Apollo, Instantly, Smartlead, Hunter and similar B2B platforms generally require account holders to be <b>18 or over</b> in their terms of service, and some require a business entity and a card. Check the current terms of any tool yourself before signing up, and if a tool requires 18+, do not create an account by entering a false date of birth. Talk to a parent or guardian &mdash; in some cases they can hold the account and you use it with their supervision, which is a normal arrangement for a teenager's business. Full detail in <a href="#legal">Section 15</a>.
+  </div>
+  <p><b>What Apollo actually is:</b> a database of ~250M business contacts with filters (industry, headcount, job title, location) and a built-in email sender. Its sweet spot is <em>companies with employees and job titles</em> &mdash; a "Head of Marketing at a 50-person firm". Your prospects are one-person valeting businesses run from a van. <strong>Apollo has very poor coverage of exactly the businesses you want.</strong> This is the most common expensive mistake beginners make.</p>
+  <p><b>Verdict for you: not yet.</b> Google Maps + Instagram will out-perform Apollo for local micro-businesses, at £0. Revisit tools like this only if you move upmarket (5&ndash;50 employee firms, £1,000+ sites) later.</p>
+
+  <h3>Method F &mdash; other tools worth knowing</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Tool</th><th>What it does for you</th><th>Cost</th><th>Need it now?</th></tr></thead>
+    <tbody>
+      <tr><td><b>Instant Data Scraper</b> (browser extension)</td><td>Turns a directory results page into a CSV. Massive time saver on Yell-style listing pages.</td><td>Free</td><td><span class="tag t-b">Week 2+</span></td></tr>
+      <tr><td><b>Outscraper / Apify Google Maps scrapers</b></td><td>Export hundreds of Maps listings (name, phone, site, rating) to CSV in one go.</td><td>Free tier, then pay-per-row</td><td><span class="tag t-c">Only once manual is proven</span></td></tr>
+      <tr><td><b>Hunter.io / Snov.io</b></td><td>Find and verify email addresses on a domain.</td><td>Free tier ~25&ndash;50/mo</td><td><span class="tag t-b">Useful, check age terms</span></td></tr>
+      <tr><td><b>PageSpeed Insights</b></td><td>Free Google speed score for any site &mdash; a number you can quote in your email.</td><td>Free</td><td><span class="tag t-a">Yes, today</span></td></tr>
+      <tr><td><b>Loom</b></td><td>60-second screen-recorded walkthrough of their site's problems. Highest reply rate of any format.</td><td>Free tier</td><td><span class="tag t-a">Yes, week 2</span></td></tr>
+      <tr><td><b>Canva</b></td><td>Fast mockup images and before/after graphics for emails and DMs.</td><td>Free</td><td><span class="tag t-b">Handy</span></td></tr>
+      <tr><td><b>Google Sheets</b></td><td>Your entire CRM. Nothing else needed for the first 6 months.</td><td>Free</td><td><span class="tag t-a">Yes, day 1</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>On scraping:</b> before using any scraper, check the target site's terms of service and robots.txt. Public business contact details are commonly collected, but automated bulk scraping is against the terms of some sites, and how you then <em>use</em> the data is governed by data-protection and marketing rules. Manual collection is always safe; when in doubt, do it manually.</p>
+</section>
+
+<!-- ============ 3 SCORING ============ -->
+<section id="scoring">
+  <div class="sec-head"><span class="sec-num">03</span><h2>The website scoring system</h2></div>
+  <p class="lede">You are scoring how <b>broken</b> the site is. High score = big problem = strong prospect. The whole point is to stop you spending your best hours on businesses that were never going to buy.</p>
+
+  <div class="callout">
+    <strong>Rule 1: No website at all = automatic 100 / Grade A+.</strong>
+    Don't score anything else. Put them at the top of your list and contact them first. Selling a first website is roughly three times easier than selling a replacement.
+  </div>
+
+  <h3>The 10 checks (sites that DO exist)</h3>
+  <p>Open their site on your <b>phone</b> first &mdash; that's how 70&ndash;80% of their customers arrive. The whole scoring pass should take you <b>90 seconds</b>. Do not analyse deeply; you are triaging, not auditing.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:32px">#</th><th>Check</th><th>How to test it in 10 seconds</th><th style="width:56px">Points</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><b>Not mobile-friendly</b></td><td>Open on your phone. Do you have to pinch-zoom or scroll sideways? Is text tiny?</td><td><b>18</b></td></tr>
+      <tr><td>2</td><td><b>Outdated design</b></td><td>Does it look like 2010? Gradient buttons, drop-shadowed boxes, Times New Roman, tiny logo, visitor counter, Flash placeholder, copyright year 3+ years old.</td><td><b>15</b></td></tr>
+      <tr><td>3</td><td><b>Slow</b></td><td>Count out loud while it loads. Over 4 seconds = yes. Confirm with PageSpeed Insights &mdash; a mobile score under 50 is a number you can quote in your email.</td><td><b>12</b></td></tr>
+      <tr><td>4</td><td><b>No clear call-to-action</b></td><td>Within 3 seconds of landing, is it obvious what to do next? "Call now", "Get a free quote", a visible phone number? If you have to hunt, score it.</td><td><b>12</b></td></tr>
+      <tr><td>5</td><td><b>Contact details buried or unclickable</b></td><td>Tap the phone number on mobile. Does it dial? Is there a number in the header at all? Any contact form that works?</td><td><b>10</b></td></tr>
+      <tr><td>6</td><td><b>Bad layout</b></td><td>Overlapping elements, broken images, walls of unbroken text, no visual hierarchy, menu that doesn't work.</td><td><b>8</b></td></tr>
+      <tr><td>7</td><td><b>Missing key information</b></td><td>Can you tell what they do, where they cover, and roughly what it costs? Missing service list, service area, or opening hours all count.</td><td><b>8</b></td></tr>
+      <tr><td>8</td><td><b>Weak SEO basics</b></td><td>Look at the browser tab: does the page title say "Home" or "Untitled"? Does it mention their town anywhere? Google <code>site:theirdomain.co.uk</code> &mdash; if almost nothing is indexed, score it.</td><td><b>7</b></td></tr>
+      <tr><td>9</td><td><b>Unprofessional appearance</b></td><td>Stretched/pixelated logo, low-res or obviously fake stock photos, clashing colours, typos in the headline, Comic Sans.</td><td><b>6</b></td></tr>
+      <tr><td>10</td><td><b>No social proof</b></td><td>No reviews, testimonials, gallery, or trust badges anywhere on the site &mdash; even though their Google profile has 60 five-star reviews.</td><td><b>4</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Grades and what you do with each</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Score</th><th>Grade</th><th>What it means</th><th>Your action</th></tr></thead>
+    <tbody>
+      <tr><td>No site</td><td><span class="tag t-a">A+</span></td><td>Nothing to replace</td><td>Contact <b>today</b>. Phone or DM as well as email. Highest priority in your entire list.</td></tr>
+      <tr><td>70&ndash;100</td><td><span class="tag t-a">A</span></td><td>Site is genuinely hurting them</td><td>Build a mockup of their homepage before emailing. Worth 25 minutes of your time.</td></tr>
+      <tr><td>45&ndash;69</td><td><span class="tag t-b">B</span></td><td>Clear specific problems</td><td>Standard personalised email naming the two worst problems. No mockup unless they reply.</td></tr>
+      <tr><td>25&ndash;44</td><td><span class="tag t-c">C</span></td><td>Dated but functional</td><td>Batch them. Send at the end of the week if you have capacity. Low expectation.</td></tr>
+      <tr><td>0&ndash;24</td><td><span class="tag t-d">SKIP</span></td><td>Site is fine</td><td>Do not contact. Delete the row. Your time is the scarce resource.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Two priority modifiers</h4>
+  <ul>
+    <li><b>+ Busy business bonus:</b> 25+ Google reviews at 4.5&ndash;5 stars means they have money and pride. Bump them one grade upward in priority (not in score).</li>
+    <li><b>&minus; Ghost business penalty:</b> no reviews in 2 years, or an unanswered phone number, means they may not be trading. Drop them regardless of score.</li>
+  </ul>
+</section>
+
+<!-- ============ CALCULATOR ============ -->
+<section id="calculator">
+  <div class="sec-head"><span class="sec-num">TOOL</span><h2>Lead score calculator</h2></div>
+  <p class="lede">Tick what's wrong with their site. Copy the resulting score straight into your spreadsheet.</p>
+
+  <div class="card" style="background:var(--panel)">
+    <div class="calc-row" style="border-bottom:2px solid var(--line);padding-bottom:12px">
+      <input type="checkbox" id="c0" onchange="calcScore()">
+      <div class="lbl"><b>They have NO website at all</b><small>Includes: link goes to a Facebook page, a Linktree, or a dead domain</small></div>
+      <div class="pts">= 100</div>
+    </div>
+    <div id="calcList"></div>
+    <div class="score-box">
+      <div class="score-num" id="scoreNum">0</div>
+      <div class="score-meta">
+        <div class="score-verdict" id="scoreVerdict">Tick the problems above</div>
+        <div class="score-action" id="scoreAction">&mdash;</div>
+        <div class="bar"><span id="scoreBar"></span></div>
+      </div>
+      <button class="btn" onclick="resetCalc()">Reset</button>
+    </div>
+    <p class="small" style="margin:12px 0 0" id="scoreNotes"></p>
+  </div>
+</section>
+
+<!-- ============ 4 SHEET ============ -->
+<section id="sheet">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Building your lead list</h2></div>
+  <p class="lede">One Google Sheet. Two tabs. This is your entire CRM until you have 10 clients &mdash; do not pay for software.</p>
+
+  <h3>Setup</h3>
+  <ol class="steps">
+    <li><b>Create a Google Sheet</b> called <code>LEADS &mdash; [niche] &mdash; [year]</code>.</li>
+    <li><b>Tab 1: <code>Leads</code></b> &mdash; every prospect, using the columns below.</li>
+    <li><b>Tab 2: <code>Clients</code></b> &mdash; anyone who has paid. Name, price, dates, files delivered, testimonial, referral asked yes/no.</li>
+    <li><b>Freeze row 1</b> (View &rarr; Freeze &rarr; 1 row) and turn on filters (Data &rarr; Create a filter).</li>
+    <li><b>Add dropdowns</b> on the columns marked "list" via Data &rarr; Data validation. Consistent values are what make sorting work.</li>
+    <li><b>Add conditional formatting</b> on the Score column: green above 70, amber 45&ndash;69, grey below 45. You'll see your best leads at a glance.</li>
+  </ol>
+
+  <h3>Exact columns</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Col</th><th>Header</th><th>Example</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td><b>Date Added</b></td><td>2026-03-04</td><td>Use <code>YYYY-MM-DD</code> so it sorts properly.</td></tr>
+      <tr><td>B</td><td><b>Business Name</b></td><td>Apex Mobile Valeting</td><td>Exactly as written on Google &mdash; you'll paste it into emails.</td></tr>
+      <tr><td>C</td><td><b>Niche</b></td><td>Car valeting</td><td class="small"><i>list</i> &mdash; lets you compare reply rates per niche later.</td></tr>
+      <tr><td>D</td><td><b>Location</b></td><td>Stockport</td><td>Town, not full address. Used in the email's first line.</td></tr>
+      <tr><td>E</td><td><b>Website</b></td><td>apexvaleting.co.uk / NONE</td><td>Literally type <code>NONE</code> so you can filter for them.</td></tr>
+      <tr><td>F</td><td><b>Score</b></td><td>78</td><td>From the calculator. Number only.</td></tr>
+      <tr><td>G</td><td><b>Grade</b></td><td>A</td><td class="small"><i>formula</i> &mdash; see below. Don't type it by hand.</td></tr>
+      <tr><td>H</td><td><b>Top 2 Problems</b></td><td>not mobile-friendly; no phone number visible</td><td><b>The most important column.</b> This is the personalisation you paste into the email. Write it while you're looking at the site.</td></tr>
+      <tr><td>I</td><td><b>Owner / Contact Name</b></td><td>Dave</td><td>From the site, Companies House, or a Google review. Blank if unknown &mdash; never guess.</td></tr>
+      <tr><td>J</td><td><b>Email</b></td><td>info@apexvaleting.co.uk</td><td>Prefer a real named address over <code>info@</code> where one exists.</td></tr>
+      <tr><td>K</td><td><b>Phone</b></td><td>07700 900123</td><td>Format as plain text so Sheets doesn't eat the leading 0.</td></tr>
+      <tr><td>L</td><td><b>Social</b></td><td>@apexvaleting (IG)</td><td>Your second channel when email gets no answer.</td></tr>
+      <tr><td>M</td><td><b>Reviews</b></td><td>63 &#9733;4.9</td><td>Your busy-business signal, and a genuine compliment for line 1.</td></tr>
+      <tr><td>N</td><td><b>Source</b></td><td>Google Maps</td><td class="small"><i>list</i>: Maps / Instagram / Facebook / Yell / Referral / Other.</td></tr>
+      <tr><td>O</td><td><b>Channel Used</b></td><td>Email</td><td class="small"><i>list</i>: Email / IG DM / FB DM / Phone / In person.</td></tr>
+      <tr><td>P</td><td><b>Contacted?</b></td><td>Yes</td><td class="small"><i>list</i>: No / Sent 1 / Sent 2 / Sent 3 / Called / Stop.</td></tr>
+      <tr><td>Q</td><td><b>Date Contacted</b></td><td>2026-03-05</td><td>First touch.</td></tr>
+      <tr><td>R</td><td><b>Follow-up Date</b></td><td>2026-03-08</td><td class="small"><i>formula</i>: <code>=Q2+3</code>. Sort by this column each morning &mdash; that's your follow-up list.</td></tr>
+      <tr><td>S</td><td><b>Response</b></td><td>Interested</td><td class="small"><i>list</i>: None / Interested / Question / Not now / Not interested / Do not contact.</td></tr>
+      <tr><td>T</td><td><b>Outcome</b></td><td>Won &pound;180</td><td class="small"><i>list</i>: Open / Call booked / Quoted / Won / Lost / Dead.</td></tr>
+      <tr><td>U</td><td><b>Price Quoted</b></td><td>180</td><td>Number only, no &pound; sign, so you can SUM it.</td></tr>
+      <tr><td>V</td><td><b>Notes</b></td><td>Wants it before the season starts in May</td><td>Anything they say about timing, budget or hesitations. Read this before every follow-up.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Formulas to paste in (row 2, then drag down)</h4>
+  <div class="tpl">
+    <div class="tpl-head"><b>Grade (column G)</b><button class="copy" onclick="cp(this)">Copy</button></div>
+    <pre>=IF(E2="NONE","A+",IF(F2&gt;=70,"A",IF(F2&gt;=45,"B",IF(F2&gt;=25,"C","SKIP"))))</pre>
+  </div>
+  <div class="tpl">
+    <div class="tpl-head"><b>Follow-up date (column R) &mdash; 3 days after contact</b><button class="copy" onclick="cp(this)">Copy</button></div>
+    <pre>=IF(Q2="","",Q2+3)</pre>
+  </div>
+  <div class="tpl">
+    <div class="tpl-head"><b>Ready-to-paste email opener (add as column W)</b><button class="copy" onclick="cp(this)">Copy</button></div>
+    <pre>=IF(I2="","Hi,","Hi "&amp;I2&amp;",")&amp;" I came across "&amp;B2&amp;" while looking at "&amp;C2&amp;" businesses in "&amp;D2&amp;"."</pre>
+  </div>
+  <p class="small">That last one is your first automation. It writes a personalised opening line for every lead at once, and you paste it in rather than retyping. Add more merge columns as you find phrases that work.</p>
+
+  <h4>Dashboard cells (put these on the Clients tab)</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Metric</th><th>Formula</th></tr></thead>
+    <tbody>
+      <tr><td>Total leads</td><td class="mono">=COUNTA(Leads!B2:B)</td></tr>
+      <tr><td>Contacted</td><td class="mono">=COUNTIF(Leads!P2:P,"&lt;&gt;No")</td></tr>
+      <tr><td>Replies</td><td class="mono">=COUNTIFS(Leads!S2:S,"&lt;&gt;None",Leads!S2:S,"&lt;&gt;")</td></tr>
+      <tr><td>Reply rate</td><td class="mono">=Replies/Contacted</td></tr>
+      <tr><td>Won</td><td class="mono">=COUNTIF(Leads!T2:T,"Won")</td></tr>
+      <tr><td>Revenue</td><td class="mono">=SUMIF(Leads!T2:T,"Won",Leads!U2:U)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn">
+    <strong>Two data rules to follow from day one</strong>
+    (1) When someone says "don't contact me again", set Response to <b>Do not contact</b> and never message them again on any channel. Keep the row &mdash; deleting it means you'll re-add them next month. (2) Only store business contact details you actually need for this purpose, keep the sheet private, and delete leads you've given up on. See <a href="#legal">Section 15</a> on data protection.
+  </div>
+</section>
+
+<!-- ============ 5 COLD EMAIL ============ -->
+<section id="email">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Cold email</h2></div>
+  <p class="lede">Yes, email is the right primary channel &mdash; but not on its own, and not the way most people do it.</p>
+
+  <h3>Is email actually the best method here?</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Channel</th><th>Typical reply rate</th><th>Use it for</th></tr></thead>
+    <tbody>
+      <tr><td><b>Email</b></td><td>2&ndash;8% cold; 10&ndash;20% with a mockup attached</td><td>Your volume channel. Scales, gets logged, easy to follow up.</td></tr>
+      <tr><td><b>Instagram / Facebook DM</b></td><td>1&ndash;3% cold; 10%+ if warmed first</td><td>Businesses with no website and no listed email. Best for under-30 owners.</td></tr>
+      <tr><td><b>Phone call</b></td><td>20&ndash;40% conversation rate</td><td><b>Highest converting thing you can do.</b> Reserve for A+ leads. 10 calls beats 100 emails.</td></tr>
+      <tr><td><b>Walking in / handing over a printout</b></td><td>Very high</td><td>Shops with premises, if you're comfortable and it's safe &mdash; tell a parent where you're going.</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The honest answer:</b> email gets you volume, phone gets you clients. Use email to reach 30 businesses a day, and phone the 3 best ones. If you're nervous about calling, that's normal &mdash; start by calling the ones who already replied to your email. That's not a cold call, it's a scheduled chat, and it's much easier.</p>
+
+  <h3>The five rules every email must follow</h3>
+  <ol>
+    <li><b>Under 90 words.</b> They're reading on a phone between jobs. If it needs scrolling, it gets deleted.</li>
+    <li><b>Line 1 must be about them, and must be impossible to have sent to anyone else.</b> This is the whole game.</li>
+    <li><b>Name a specific problem, not "your website could be better".</b> "Your site doesn't fit on a phone screen" is a fact they can check in 5 seconds.</li>
+    <li><b>One question at the end, easy to answer with one word.</b> Never "let me know if you're interested" &mdash; that requires them to write a paragraph.</li>
+    <li><b>No attachments in the first email, no links in the first line, no buzzwords.</b> "Synergy", "leverage", "digital transformation", "I hope this email finds you well" &mdash; all instant deletes and all spam signals.</li>
+  </ol>
+
+  <h3>What to personalise, exactly</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Element</th><th>Personalise?</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Subject line</td><td><span class="tag t-a">Yes &mdash; include their business name or town</span></td><td>Column B / D</td></tr>
+      <tr><td>Greeting name</td><td><span class="tag t-a">Yes if known, otherwise "Hi,"</span></td><td>Column I. Never guess a name &mdash; wrong name is worse than none.</td></tr>
+      <tr><td>Opening sentence</td><td><span class="tag t-a">Always, by hand</span></td><td>Their reviews, their town, their Instagram, a job they posted</td></tr>
+      <tr><td>The specific problem named</td><td><span class="tag t-a">Always</span></td><td>Column H (Top 2 Problems)</td></tr>
+      <tr><td>Body / offer / price line</td><td><span class="tag t-n">No &mdash; keep identical</span></td><td>This is what makes the system scale</td></tr>
+      <tr><td>Closing question</td><td><span class="tag t-n">No</span></td><td>Same one every time so you can measure it</td></tr>
+      <tr><td>Signature</td><td><span class="tag t-n">No</span></td><td>Name, one-line description, link to your examples</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>The 80/20:</b> personalise the subject line, the first sentence, and the named problem. That's ~15 seconds of work per email and it's the difference between 1% and 8%.</p>
+
+  <h3>Subject lines that work</h3>
+  <div class="grid g2">
+    <div class="card"><b>Use these</b><ul class="small" style="margin-bottom:0">
+      <li>quick question about Apex Valeting</li>
+      <li>Apex Valeting website</li>
+      <li>your site on mobile</li>
+      <li>noticed something &mdash; Apex Valeting</li>
+      <li>idea for Apex Valeting</li>
+      <li>Stockport detailers</li>
+    </ul></div>
+    <div class="card"><b>Never use these</b><ul class="small" style="margin-bottom:0">
+      <li>Grow Your Business 10x!!!</li>
+      <li>FREE Website Audit</li>
+      <li>Web Design Services &mdash; Special Offer</li>
+      <li>Re: our conversation <span class="tag t-d">dishonest</span></li>
+      <li>Anything in ALL CAPS or with emojis</li>
+      <li>Anything longer than 6 words</li>
+    </ul></div>
+  </div>
+  <p class="small">Lowercase, short and slightly boring beats polished marketing copy every time &mdash; it reads like a person, not a campaign.</p>
+
+  <h3>The templates</h3>
+  <p class="small">Yellow highlights = you must change these. Everything else stays as-is.</p>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Template A &mdash; No website at all</b><span class="when">Your highest-converting email. Use on every A+ lead.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Subject: quick question about <mark>[Business Name]</mark>
+
+Hi <mark>[Name]</mark>,
+
+I was looking through <mark>[car detailers in Stockport]</mark> and noticed
+<mark>[Business Name]</mark> has <mark>[63 five-star reviews]</mark> but no website —
+just the Google listing.
+
+That probably means people who search for you at 9pm can't find
+your prices or book you, so they call whoever is at the top of
+Google instead.
+
+I build simple one-page sites for <mark>[detailers]</mark> — photos, services,
+reviews, click-to-call. You get the files and put them on your own
+hosting, so there's no monthly fee to me ever.
+
+Want me to send you an example of what yours could look like?
+
+<mark>[Your name]</mark>
+<mark>[yoursite.com]</mark></pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Template B &mdash; Bad existing website</b><span class="when">Grade A/B leads. Name real, checkable problems.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Subject: <mark>[Business Name]</mark> website
+
+Hi <mark>[Name]</mark>,
+
+I had a look at <mark>[businessname.co.uk]</mark> on my phone this morning —
+<mark>[the text is too small to read without zooming in, and the phone
+number isn't tappable]</mark>.
+
+Worth fixing, because most people finding <mark>[detailers]</mark> are on
+a phone. If it's awkward to use they usually just go back to
+Google.
+
+I rebuild sites like this as a clean, fast, mobile-first page and
+hand over the files for you to upload to your own hosting.
+No monthly fees.
+
+Would it be useful if I sent over a quick mock-up of your homepage
+so you can see the difference?
+
+<mark>[Your name]</mark>
+<mark>[yoursite.com]</mark></pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Template C &mdash; The mockup email <span class="tag t-a">HIGHEST REPLY RATE</span></b><span class="when">After you've spent ~25 min redesigning their homepage hero.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Subject: made you something — <mark>[Business Name]</mark>
+
+Hi <mark>[Name]</mark>,
+
+I redesigned the top of your homepage to see what it would look
+like mobile-first. Took me half an hour, no strings:
+
+<mark>[link to the mockup image or live demo page]</mark>
+
+I used your own photos and colours. The main changes: your phone
+number is now tappable and visible straight away, and your
+<mark>[63 reviews]</mark> are on the page instead of hidden on Google.
+
+If you like it I can finish the whole thing for <mark>[£180]</mark>, and
+you get the files to host wherever you want.
+
+If not, keep the mock-up, genuinely no problem.
+
+<mark>[Your name]</mark></pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Template D &mdash; Loom video</b><span class="when">For A+ leads worth 10 minutes. Very hard to ignore.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Subject: 60 second video about your site
+
+Hi <mark>[Name]</mark>,
+
+I recorded a 60-second clip walking through <mark>[businessname.co.uk]</mark>
+on my phone, showing the three things I'd change and why:
+
+<mark>[Loom link]</mark>
+
+No pitch in it, just the walkthrough. If any of it is useful,
+happy to talk about doing the rebuild — it's a one-off <mark>[£180]</mark>
+and you keep the files.
+
+<mark>[Your name]</mark></pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Template E &mdash; The 40-word version</b><span class="when">When you're sending in bulk and time is short. Surprisingly effective.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Subject: <mark>[Business Name]</mark> — mobile site
+
+Hi <mark>[Name]</mark>,
+
+Your site doesn't work properly on a phone — I checked this
+morning.
+
+I build one-page mobile-first sites for <mark>[detailers]</mark> for a one-off
+<mark>[£150]</mark>, files handed over, no monthly anything.
+
+Want to see an example?
+
+<mark>[Your name]</mark></pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Template F &mdash; The Linktree / social-only angle</b><span class="when">For businesses whose "website" is a Linktree or Facebook page.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Subject: your link in bio
+
+Hi <mark>[Name]</mark>,
+
+Your <mark>[Instagram]</mark> is doing the hard work — <mark>[4,200 followers]</mark> and
+the <mark>[before/after]</mark> photos are great. But the link in your bio
+goes to a Linktree, so people who are ready to book land on a
+list of buttons instead of your prices.
+
+A single page with your work, prices and a tap-to-call button
+would catch those people. One-off <mark>[£150]</mark>, you own the files.
+
+Want me to mock one up using your posts?
+
+<mark>[Your name]</mark></pre>
+  </div>
+
+  <h3>The follow-up sequence</h3>
+  <p><strong>About 60% of replies come from follow-ups, not the first email.</strong> Most beginners send once and conclude cold email doesn't work. Send 3 follow-ups maximum, then stop &mdash; permanently.</p>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>When</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Day 0</td><td>Main email</td></tr>
+      <tr><td>2</td><td>Day 3</td><td>Short bump, reply in the same thread</td></tr>
+      <tr><td>3</td><td>Day 8</td><td>New angle &mdash; add value (mockup, proof, a competitor comparison)</td></tr>
+      <tr><td>4</td><td>Day 16</td><td>Polite close-out. Then mark <b>Stop</b> and never contact again.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Follow-up 1 &mdash; Day 3</b><span class="when">Reply to your own sent email so the thread stays together.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi <mark>[Name]</mark>, just floating this back to the top of your inbox in
+case it got buried. Happy to send the example over if it's useful?</pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Follow-up 2 &mdash; Day 8 (new angle)</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi <mark>[Name]</mark>,
+
+I went ahead and put together a rough version of your homepage
+anyway — it's here: <mark>[link]</mark>
+
+Yours to look at either way. Two minutes of your time if you're
+curious, and I'll leave it there if not.
+
+<mark>[Your name]</mark></pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Follow-up 3 &mdash; Day 16 (close-out)</b><span class="when">This one gets replies precisely because it stops asking.</span><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi <mark>[Name]</mark>,
+
+I'll stop emailing after this one — I know you're busy.
+
+If the website ever moves up the list, I'm at this address and
+I'd be glad to help. Best of luck with <mark>[Business Name]</mark>.
+
+<mark>[Your name]</mark></pre>
+  </div>
+
+  <div class="callout warn">
+    <strong>Always include a way to opt out</strong>
+    Put a plain line at the bottom of the first email in every sequence: <i>"If you'd rather I didn't email again, just reply 'no thanks' and I'll remove you."</i> It costs you nothing, it's the decent thing to do, it reduces spam complaints, and depending on where you and the recipient are, some form of opt-out may be legally expected for marketing email. See <a href="#legal">Section 15</a>.
+  </div>
+</section>
+
+<!-- ============ 6 AUTOMATION ============ -->
+<section id="automation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Automation &amp; tools</h2></div>
+  <p class="lede">The correct amount of automation in month one is almost none. Automation multiplies whatever you already have &mdash; if your message doesn't work, automation just gets it ignored faster and burns your domain doing it.</p>
+
+  <div class="callout bad">
+    <strong>Age and terms of service &mdash; read before you sign up for anything</strong>
+    Most B2B sales platforms (Apollo, Instantly, Smartlead, Lemlist, Clay, and payment processors like Stripe and PayPal Business) require account holders to be <b>18 or over</b>, and many require a business entity and a payment card. Terms change, so check the current terms yourself for each tool. <b>Do not enter a false date of birth or a false identity to get around this.</b> If a tool needs an adult, the legitimate route is for a parent or guardian to open and own the account with you operating it under their supervision &mdash; discuss it with them, and be aware they are then the account holder and responsible for how it is used. Where no adult-held account is available, use the free manual route below; it works fine.
+  </div>
+
+  <h3>Tool-by-tool verdict</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Tool</th><th>What it does</th><th>Cost</th><th>Do you need it?</th></tr></thead>
+    <tbody>
+      <tr><td><b>Google Sheets</b></td><td>Your lead database, CRM, follow-up scheduler and reporting.</td><td>Free</td><td><span class="tag t-a">Yes &mdash; day 1</span> This alone runs the whole business to ~10 clients.</td></tr>
+      <tr><td><b>Gmail (manual sending)</b></td><td>Sends your emails, one at a time, from a real inbox with real deliverability.</td><td>Free</td><td><span class="tag t-a">Yes &mdash; day 1</span> 20&ndash;30 personalised sends/day is very achievable by hand.</td></tr>
+      <tr><td><b>Gmail templates + canned responses</b></td><td>Built-in. Settings &rarr; Advanced &rarr; Templates. Insert a saved email in two clicks, then edit line 1.</td><td>Free</td><td><span class="tag t-a">Yes &mdash; day 2</span> This is 80% of what paid tools give you.</td></tr>
+      <tr><td><b>Text Blaze / Magical</b> (browser extension)</td><td>Type <code>/tplA</code> anywhere and it expands into a full template with cursor stops at the personalisation slots.</td><td>Free tier</td><td><span class="tag t-a">Yes &mdash; week 2</span> Biggest speed gain for the smallest effort. Check age terms.</td></tr>
+      <tr><td><b>PageSpeed Insights</b></td><td>Free mobile speed score you can quote in the email.</td><td>Free</td><td><span class="tag t-a">Yes</span></td></tr>
+      <tr><td><b>Loom</b></td><td>Screen-record a 60-second walkthrough of their site.</td><td>Free tier (25 videos)</td><td><span class="tag t-a">Yes &mdash; week 2</span> Best reply-rate-per-minute of any tactic.</td></tr>
+      <tr><td><b>Canva</b></td><td>Mockup images, before/after comparisons, a simple logo if a client has none.</td><td>Free</td><td><span class="tag t-b">Useful</span></td></tr>
+      <tr><td><b>Cal.com / Calendly</b></td><td>"Pick a time" link so you don't do six emails arranging a call.</td><td>Free tier</td><td><span class="tag t-b">Week 3</span></td></tr>
+      <tr><td><b>Hunter.io / Snov.io</b></td><td>Finds and verifies email addresses on a domain.</td><td>Free ~25&ndash;50 searches/mo</td><td><span class="tag t-b">Only when the email isn't on the site</span> Check age terms.</td></tr>
+      <tr><td><b>Mailmeteor / GMass / YAMM</b></td><td>Mail merge <em>from your own Gmail</em> &mdash; sends a personalised copy to each row of a Sheet. Uses your normal Gmail sending limits and reputation.</td><td>Free tiers exist</td><td><span class="tag t-b">Month 2</span> The right first step up from manual. Far safer than a cold-email platform.</td></tr>
+      <tr><td><b>Apollo.io</b></td><td>250M+ B2B contact database + sequencer.</td><td>Free tier limited; paid from ~$49/mo</td><td><span class="tag t-d">No</span> Its data is about companies with job titles. It barely covers one-van local businesses. Wrong tool for your market.</td></tr>
+      <tr><td><b>Instantly.ai</b></td><td>Cold-email platform: multiple sending inboxes, automatic warm-up, sequences, rotation.</td><td>~$30&ndash;$97/mo + extra domains/inboxes</td><td><span class="tag t-d">Not yet</span> Built for sending 500&ndash;5,000/day. At your volume it's cost with no benefit, and misconfigured it will wreck a domain.</td></tr>
+      <tr><td><b>Smartlead.ai</b></td><td>Same category as Instantly, more advanced.</td><td>~$39&ndash;$94/mo</td><td><span class="tag t-d">Not yet</span> Same reasoning.</td></tr>
+      <tr><td><b>Lemlist / Clay</b></td><td>Personalisation-at-scale, image personalisation, data enrichment.</td><td>$$$</td><td><span class="tag t-d">No</span> Powerful and genuinely overkill here.</td></tr>
+      <tr><td><b>Notion / Trello</b></td><td>Tracking live client projects once you have 3+ at once.</td><td>Free</td><td><span class="tag t-c">Later</span></td></tr>
+      <tr><td><b>Wise / Starling / Monzo</b></td><td>Receiving payments by bank transfer.</td><td>Free/low</td><td><span class="tag t-b">Check age eligibility</span> Several UK banks offer accounts from 16, but business accounts usually need 18. See Section 15.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The exact order to set things up</h3>
+  <ol class="steps">
+    <li><b>Google Sheet with the Section 4 columns.</b> Free, 20 minutes, non-negotiable.</li>
+    <li><b>A clean Gmail address</b> with your real name, a photo, and a signature containing one link to your examples page.</li>
+    <li><b>Your niche demo site,</b> live on a free host.</li>
+    <li><b>Gmail Templates turned on</b> and your 3 best templates saved into it.</li>
+    <li><b>Send 100&ndash;150 emails completely by hand.</b> Do not skip this. You are learning what gets replies &mdash; that knowledge is what you'll later automate. Track reply rate per template.</li>
+    <li><b>Add a text-expander</b> (Text Blaze) once you're bored of pasting. Now you send in half the time with the same quality.</li>
+    <li><b>Only now, if you want more volume:</b> add a Gmail mail-merge tool (Mailmeteor) and send 40&ndash;50/day from your own inbox with merge fields for name, business and problem.</li>
+    <li><b>Only if you go full-time and want 200+/day:</b> buy a secondary domain, warm it for 3&ndash;4 weeks, then consider Instantly or Smartlead &mdash; with an adult account holder if required. Most people never need this step.</li>
+  </ol>
+
+  <h3>Protecting your email reputation</h3>
+  <p>If Gmail decides you're a spammer, your emails silently land in spam forever &mdash; and you won't be told. Treat your inbox as an asset.</p>
+  <div class="grid g2">
+    <div class="card"><h4 style="margin-top:0;color:var(--good)">Do</h4><ul class="small" style="margin:0">
+      <li><b>Ramp up slowly.</b> Week 1: 10&ndash;15/day. Week 2: 20. Week 3: 30. Never jump from 0 to 100.</li>
+      <li><b>Use a separate domain for cold outreach</b> if you ever scale &mdash; e.g. main site <code>yourname.co.uk</code>, outreach from <code>yournamedesign.co.uk</code>. Damage stays contained.</li>
+      <li><b>Set up SPF, DKIM and DMARC</b> DNS records on any custom domain. Your domain registrar has a guide; it's 15 minutes and it doubles inbox placement.</li>
+      <li><b>Send plain text.</b> No HTML templates, no images in the first email, no tracking pixels.</li>
+      <li><b>Reply to everyone who replies</b>, including "no thanks". Real conversation is a positive reputation signal.</li>
+      <li><b>Include an easy opt-out line</b> and honour it within 24 hours.</li>
+      <li><b>Verify addresses</b> before sending. Bounces above ~3% are a serious problem.</li>
+    </ul></div>
+    <div class="card"><h4 style="margin-top:0;color:var(--bad)">Don't</h4><ul class="small" style="margin:0">
+      <li><b>Never BCC 50 people</b> on one email. Fastest possible way to get flagged.</li>
+      <li><b>Never buy an email list.</b> Full of spam traps and dead addresses.</li>
+      <li><b>Never use spam-trigger phrasing</b>: FREE, GUARANTEED, ACT NOW, £££, all-caps, exclamation marks.</li>
+      <li><b>Never send from your school email account.</b> It isn't yours, and it may breach your school's acceptable-use policy.</li>
+      <li><b>Never keep emailing someone who said stop.</b> Beyond the rules, it's just rude &mdash; and complaints hurt you the most.</li>
+      <li><b>Never use a brand-new domain to send on day one.</b> Let it age 2&ndash;4 weeks first.</li>
+      <li><b>Never send 100 identical emails.</b> Identical bodies are a strong spam signal &mdash; another reason line 1 matters.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ 7 SOCIAL ============ -->
+<section id="social">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Social media outreach</h2></div>
+  <p class="lede">You already tried cold DMs and got almost nothing. That's the expected result &mdash; here's the specific reason, and the fix.</p>
+
+  <h3>Why your DMs got ignored</h3>
+  <p>A cold DM from an account the business has never interacted with lands in Instagram's <b>Message Requests</b> folder. Many business owners check that folder roughly never, and when they do it's full of bot spam. Your message was probably never seen &mdash; and if it was, it looked identical to the twenty "Hi, I noticed your business could benefit from a website 🚀" messages above it.</p>
+  <p>The fix isn't a better DM. It's <b>not being a stranger when the DM arrives.</b></p>
+
+  <h3>The warm-up method &mdash; exact steps</h3>
+  <ol class="steps">
+    <li><b>Set your own profile up properly first.</b> Bio: "I build fast websites for <mark>[detailers]</mark> &mdash; one-off fee, you own the files." Real photo. Link to your examples. 6&ndash;9 posts showing work, before/afters and short tips. An empty profile kills every DM you send, no matter how good.</li>
+    <li><b>Build a target list of 30 accounts</b> in your niche + area. Put them in the Social column of your sheet.</li>
+    <li><b>Day 1: follow all 30 and like 2&ndash;3 recent posts each.</b> Ten minutes. They get a notification with your name on it.</li>
+    <li><b>Day 2: leave a real comment</b> on the most recent post of the 15 best ones. Not "🔥🔥" &mdash; something specific: "That paint correction on the black Golf came out unreal." Ten minutes. Now your name is familiar and other people see it too.</li>
+    <li><b>Day 3: reply to a Story.</b> Story replies land in the <b>main inbox</b>, not message requests. This is the single most useful mechanic on Instagram for outreach. Reply to something real: "how long did that one take you?" Get an actual conversation going.</li>
+    <li><b>Day 4&ndash;5: send the DM &mdash; and only after they've replied to something.</b> Use the script below. You are now a person they recognise, not a request from a stranger.</li>
+    <li><b>Log it in your sheet</b> with Channel = IG DM and a follow-up date, exactly like email.</li>
+  </ol>
+  <p class="small"><b>Throughput:</b> ~30 accounts warmed per week, ~20 minutes a day. Expect a much higher hit rate than the hundreds of cold DMs you sent before. Warm 30 rather than blast 300 &mdash; mass unsolicited DMing also risks your account being action-blocked or banned under the platform's terms.</p>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Instagram DM &mdash; after warm-up</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hey <mark>[Name]</mark> — been watching your work for a bit, the
+<mark>[interior details]</mark> are proper.
+
+Random one: your link in bio goes to <mark>[a Linktree]</mark>. I build
+simple one-page sites for <mark>[detailers]</mark> — prices, gallery,
+tap-to-call, and you get the files so there's no monthly fee.
+
+Want me to mock one up with your photos so you can see it? No
+charge for the mock-up.</pre>
+  </div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Facebook Page message &mdash; no website</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi, I'm <mark>[name]</mark> — I build websites for <mark>[dog groomers]</mark> around
+<mark>[Stockport]</mark>.
+
+I noticed you're running everything through the Facebook page.
+That works, but people who search Google at 9pm can't see your
+prices or book you.
+
+I do a one-page site for a one-off <mark>[£150]</mark> — you get the files
+and put them on your own hosting, no monthly cost.
+
+Would an example be useful?</pre>
+  </div>
+
+  <h3>Platform-by-platform verdict</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Platform</th><th>Worth it?</th><th>How to use it</th></tr></thead>
+    <tbody>
+      <tr><td><b>Instagram</b></td><td><span class="tag t-a">Yes &mdash; best social channel</span></td><td>Warm-up method above. Story replies are the key mechanic. Perfect for visual niches.</td></tr>
+      <tr><td><b>Facebook</b></td><td><span class="tag t-a">Yes</span></td><td>Pages messaging works well for older trades. Local business groups are dense with prospects &mdash; follow group rules and answer "can anyone recommend&hellip;" posts rather than posting adverts.</td></tr>
+      <tr><td><b>TikTok</b></td><td><span class="tag t-b">Yes, but as content not outreach</span></td><td>"I redesigned a random local business's website in 20 minutes" videos genuinely pull inbound enquiries. Slow burn, high ceiling.</td></tr>
+      <tr><td><b>LinkedIn</b></td><td><span class="tag t-c">Not for this niche</span></td><td>Mobile valeters aren't on LinkedIn. It becomes useful if you later target 10&ndash;50 person companies. Note LinkedIn's minimum age requirement is 16 &mdash; check the current terms.</td></tr>
+      <tr><td><b>Nextdoor / local forums</b></td><td><span class="tag t-b">Quietly good</span></td><td>Extremely local, and people literally post asking for recommendations.</td></tr>
+      <tr><td><b>Reddit</b></td><td><span class="tag t-c">Rarely</span></td><td>Most subreddits ban self-promotion. Occasional freelance-hiring threads only.</td></tr>
+      <tr><td><b>Fiverr / Upwork / PeoplePerHour</b></td><td><span class="tag t-d">Check age rules first</span></td><td>These marketplaces typically require users to be 18+. Don't misstate your age to join. Ask a parent/guardian and read the terms &mdash; some allow a guardian-held account.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>The highest-leverage social move for a 16-year-old</strong>
+    Post the work publicly. Every time you build something &mdash; including free mockups nobody bought &mdash; post it: "Local <mark>[detailer]</mark> had no website, so I built them one. Before &rarr; after." Do this on Instagram and TikTok. It costs nothing, it compounds, it turns your outreach from cold to warm because prospects can see you're real, and eventually it makes people message <em>you</em>. Ten posts is worth more than a thousand DMs.
+  </div>
+</section>
+
+<!-- ============ 8 WORKFLOW ============ -->
+<section id="workflow">
+  <div class="sec-head"><span class="sec-num">08</span><h2>The outreach workflow</h2></div>
+  <p class="lede">The complete loop, start to finish. Once it's habit, one prospect takes you about 3 minutes end to end.</p>
+
+  <ol class="steps">
+    <li><b>FIND &mdash; 40 seconds.</b> Google Maps, your niche + town, arrow-key down the results. Skip anything that fails the qualification filter in Section 2. Don't research yet, just collect.</li>
+    <li><b>INSPECT &mdash; 90 seconds.</b> Open their site on your phone (or Chrome DevTools device mode). Look at it the way a customer would: can you tell what they do, and can you contact them in one tap? Note the two worst problems in plain English &mdash; the words you'd use to a friend, not technical terms.</li>
+    <li><b>SCORE &mdash; 15 seconds.</b> Run the calculator. No site = 100, straight to the top. Under 25 = close the tab and move on, no guilt.</li>
+    <li><b>FIND THE CONTACT &mdash; 60 seconds.</b> In order: (1) their website's contact page or footer; (2) the Instagram profile's Email button; (3) the Facebook Page About tab; (4) the Google listing; (5) Companies House for the owner's real name; (6) a Google review that names them ("Dave was great"). Stop after 60 seconds &mdash; a phone number or a DM is a perfectly good contact route.</li>
+    <li><b>ADD TO SPREADSHEET &mdash; 30 seconds.</b> Fill every column you have, especially <b>Top 2 Problems</b>. Set Contacted = No.</li>
+    <li><b>BATCH.</b> Repeat steps 1&ndash;5 until you have 20&ndash;30 qualified leads. <b>Do not send anything yet.</b> Research and outreach are different modes of thinking and switching between them halves your speed.</li>
+    <li><b>PERSONALISE &mdash; 20 seconds each.</b> Open your template. Change: subject line (their name), greeting, line 1 (their reviews/town/photos), and the named problem from column H. Read it once out loud &mdash; if it sounds like a robot, cut a sentence.</li>
+    <li><b>SEND.</b> One at a time, from Gmail. Log the date. Set the follow-up date. Never BCC.</li>
+    <li><b>UPGRADE YOUR TOP 5.</b> Of today's batch, take the 5 highest scorers and build a mockup or record a Loom for them. Send Template C or D instead. This is where your actual clients come from.</li>
+    <li><b>FOLLOW UP &mdash; 10 minutes daily.</b> Sort the sheet by Follow-up Date, work today's rows, send FU1 / FU2 / FU3, then bump the date. Three follow-ups maximum, then mark Stop.</li>
+    <li><b>HANDLE THE RESPONSE &mdash; within 1 hour if you possibly can.</b> Speed of reply is a competitive advantage you have over every agency. Use Section 12. Goal of the first reply: get to a <b>phone or video call</b>, or at minimum get them to say a price is fine.</li>
+    <li><b>CLOSE.</b> Confirm scope, price and timeline in writing (email is fine). Take a <b>50% deposit</b> before you start. Send the intake questionnaire (Section 13) the moment the deposit lands. Update Outcome = Won.</li>
+    <li><b>BUILD, DELIVER, GET PAID</b> (Sections 13&ndash;14). Then immediately: ask for a testimonial and ask "do you know two other <mark>[detailers]</mark> who'd want the same thing?" Referrals are how this stops being cold outreach.</li>
+  </ol>
+
+  <div class="callout good">
+    <strong>The three rules that make the loop work</strong>
+    (1) <b>Batch by mode</b> &mdash; find 30, then score 30, then send 30. Never one at a time. (2) <b>Never skip the follow-up block</b>, even on a bad day; it's 10 minutes and it produces most of your replies. (3) <b>Reply to inbound within the hour.</b> A prospect who emailed you at 4pm has forgotten you by tomorrow.
+  </div>
+</section>
+
+<!-- ============ 9 ROUTINE ============ -->
+<section id="routine">
+  <div class="sec-head"><span class="sec-num">09</span><h2>Daily routine</h2></div>
+  <p class="lede">Built around school. 80 minutes on a weekday, longer at weekends. Consistency beats intensity &mdash; 80 minutes every day for a month will outperform one 8-hour weekend burst.</p>
+
+  <h3>Weekday &mdash; 80 minutes</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Block</th><th>Time</th><th>What you do</th><th>Target</th></tr></thead>
+    <tbody>
+      <tr><td><b>1. Follow-ups</b></td><td>10 min</td><td>Sort by Follow-up Date. Send everything due today. Bump dates.</td><td>All due rows cleared</td></tr>
+      <tr><td><b>2. Reply to inbound</b></td><td>10 min</td><td>Answer every reply, DM and missed call. Use Section 12 scripts. Book calls.</td><td>Inbox at zero</td></tr>
+      <tr><td><b>3. Find leads</b></td><td>25 min</td><td>Google Maps / Instagram. Collect and qualify only &mdash; no writing.</td><td><b>20 new leads</b></td></tr>
+      <tr><td><b>4. Score &amp; research</b></td><td>15 min</td><td>Check sites on your phone, score, fill in Top 2 Problems, find contacts.</td><td><b>15 scored, 10 with contact details</b></td></tr>
+      <tr><td><b>5. Send outreach</b></td><td>20 min</td><td>Personalise and send. Log every one.</td><td><b>15&ndash;20 sent</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Best times to send:</b> 7&ndash;8am (before their first job) or 6&ndash;8pm (after it). Tradespeople read email in the van, not at a desk. Avoid Friday afternoons and Monday 9am.</p>
+
+  <h3>Weekend &mdash; 3 hours (split it however you like)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Block</th><th>Time</th><th>What you do</th></tr></thead>
+    <tbody>
+      <tr><td><b>Mockup factory</b></td><td>75 min</td><td>Build 3 mockups for your top-scoring prospects of the week. Send Template C to each. This block produces most of your clients.</td></tr>
+      <tr><td><b>Bulk lead harvest</b></td><td>45 min</td><td>Fill the pipeline for the whole coming week &mdash; 80&ndash;100 leads so weekdays are friction-free.</td></tr>
+      <tr><td><b>Build / improve</b></td><td>45 min</td><td>Improve your template kit, add a component (pricing table, review slider, gallery lightbox), or build a second niche demo.</td></tr>
+      <tr><td><b>Review the numbers</b></td><td>15 min</td><td>Sent / replies / calls / sales. Change <b>one</b> thing next week, never five &mdash; you won't know what worked.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn">
+    <strong>When you land a client, the routine changes</strong>
+    Build time comes out of blocks 3&ndash;5, never out of blocks 1&ndash;2. Freelancers everywhere make the same mistake: they get one client, stop prospecting entirely, finish the job, and find themselves back at zero with an empty pipeline. Keep sending at least 5 emails a day even when you're busy.
+  </div>
+
+  <h3>Weekly targets to hold yourself to</h3>
+  <div class="grid g4">
+    <div class="kpi"><div class="n">100</div><div class="l">leads researched</div></div>
+    <div class="kpi"><div class="n">75+</div><div class="l">first-touch messages</div></div>
+    <div class="kpi"><div class="n">40+</div><div class="l">follow-ups sent</div></div>
+    <div class="kpi"><div class="n">3</div><div class="l">mockups built</div></div>
+    <div class="kpi"><div class="n">5&ndash;8</div><div class="l">replies</div></div>
+    <div class="kpi"><div class="n">1&ndash;2</div><div class="l">calls booked</div></div>
+    <div class="kpi"><div class="n">1</div><div class="l">public post about your work</div></div>
+    <div class="kpi"><div class="n">0</div><div class="l">days skipping follow-ups</div></div>
+  </div>
+</section>
+
+<!-- ============ 10 FIRST CLIENTS ============ -->
+<section id="firstclients">
+  <div class="sec-head"><span class="sec-num">10</span><h2>Getting your first 1&ndash;5 clients</h2></div>
+  <p class="lede">You have one good website. That is genuinely enough &mdash; if you use it correctly and add one thing to it.</p>
+
+  <h3>The problem, stated honestly</h3>
+  <p>A dog groomer looking at your portfolio of one unrelated site has to make an imaginative leap: "would this person build something good <em>for me</em>?" Most people won't make that leap. Your job for the first month is to remove it entirely.</p>
+
+  <h3>Fix 1: build a niche demo (do this before anything else)</h3>
+  <ol class="steps">
+    <li><b>Invent a business in your target niche.</b> "Apex Mobile Valeting, Stockport". Make clear on the page that it's a demo.</li>
+    <li><b>Build the one-page site you'd sell for &pound;150.</b> Hero with a tap-to-call button, services with prices, photo gallery, three reviews, service area, contact form, footer. Mobile-first. Fast.</li>
+    <li><b>Use realistic free stock photos</b> (Unsplash, Pexels) &mdash; check each image's licence &mdash; and write realistic copy. Not lorem ipsum. Not "Company Name Here".</li>
+    <li><b>Deploy it free</b> (Netlify drag-and-drop, GitHub Pages or Cloudflare Pages) so you can send a live link, not a screenshot.</li>
+    <li><b>Now you can say the sentence that closes deals:</b> "here's one I built for a detailer &mdash; yours would look like this with your photos."</li>
+    <li><b>Repeat once more</b> so you have two examples in the same niche. Two same-niche demos beat ten random ones.</li>
+  </ol>
+  <p class="small">Clearly label demos as demos on your own examples page. Never present a demo as a real client's site &mdash; that's the kind of small lie that ends a project when it comes out, and it will come out.</p>
+
+  <h3>Fix 2: the free mockup (your unfair advantage)</h3>
+  <p>Nobody else doing cold outreach at this price point does this, because it takes 25 minutes. That's exactly why it works.</p>
+  <ol class="steps">
+    <li><b>Pick a prospect scoring 70+</b> with decent photos on their Google listing or Instagram.</li>
+    <li><b>Copy your demo template folder.</b></li>
+    <li><b>Swap in their real name, real logo, real colours, 3&ndash;4 of their real photos, and 2 of their real Google reviews.</b> 25 minutes, because the structure already exists.</li>
+    <li><b>Deploy it to a temporary URL</b> (or just screenshot the top of the page &mdash; a screenshot works nearly as well and is faster).</li>
+    <li><b>Send Template C.</b> "I redesigned the top of your homepage &mdash; no strings, keep it either way."</li>
+    <li><b>Expect 3&ndash;5 replies from every 10 sent.</b> That's a completely different business from cold email.</li>
+  </ol>
+  <p class="small"><b>One caution:</b> use their photos and logo only for a private mockup shown to them. Don't publish someone's branding on a public site or advert without permission, and take the temporary URL down afterwards if they say no.</p>
+
+  <h3>Fix 3: the founding-client offer</h3>
+  <div class="callout">
+    <strong>Say this, exactly, to your first 3 clients:</strong>
+    <br>"I'm building up my portfolio in <mark>[car detailing]</mark>, so I'm doing my first three at <mark>&pound;120</mark> instead of <mark>&pound;180</mark>. All I ask in return is a short written review and permission to show the site as an example. After these three the price goes up."
+    <br><br>This is honest, it explains the low price without making you look cheap, it gives them a reason to move now, and it gets you the two things you're actually short of: examples and testimonials.
+  </div>
+
+  <h3>Fix 4: the warm circle (do this in week 1)</h3>
+  <p>Before any cold outreach, message everyone who already knows you. This is where most first clients genuinely come from.</p>
+  <ul>
+    <li>Family members who run anything &mdash; a business, a side hustle, a club, a market stall</li>
+    <li>Your parents' friends and colleagues &mdash; ask your parents to ask on your behalf, it works</li>
+    <li>Local businesses you or your family already use: the barber, the garage, the gym, the takeaway</li>
+    <li>Your school or college &mdash; teachers, the enterprise/careers lead, a sixth-form business club</li>
+    <li>Local sports clubs, scouts, churches, community groups &mdash; often desperate for a decent page</li>
+  </ul>
+  <div class="tpl">
+    <div class="tpl-head"><b>Warm-circle message</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi <mark>[Name]</mark>, quick favour — I've started building websites for
+small businesses and I'm looking for my first few.
+
+Do you know anyone who runs a business with either no website or
+a really old one? I'll do it for <mark>[£120]</mark> as a one-off and they
+keep the files, no monthly fees.
+
+Even just a name would help a lot.</pre>
+  </div>
+
+  <h3>What to do with your one existing site</h3>
+  <ul>
+    <li><b>Lead with the outcome, not the code.</b> "This one loads in under a second and works on every phone" beats "built in vanilla JavaScript".</li>
+    <li><b>Show it as a phone screenshot,</b> because that's how their customers see websites.</li>
+    <li><b>Put it alongside your two niche demos</b> so the examples page has three things on it and looks like a body of work.</li>
+    <li><b>Never apologise for having one.</b> Say "here's a recent one", not "I've only done one so far".</li>
+    <li><b>Add the mockup you make for <em>them</em></b> and suddenly your portfolio is 100% relevant to that specific conversation.</li>
+  </ul>
+</section>
+
+<!-- ============ 11 PRICING ============ -->
+<section id="pricing">
+  <div class="sec-head"><span class="sec-num">11</span><h2>Pricing</h2></div>
+  <p class="lede">Short answer: &pound;100&ndash;&pound;200 is a sensible <b>starting</b> price and a bad <b>permanent</b> one.</p>
+
+  <h3>Is &pound;100&ndash;&pound;200 sensible?</h3>
+  <p><b>Yes, for your first five clients.</b> At this price the decision is easy for a small business owner &mdash; it's less than a set of tyres &mdash; so they don't need to think hard, get quotes, or "run it past" anyone. That removes the biggest obstacle you face, which is nobody having heard of you.</p>
+  <p><b>But be aware what you're signing up for.</b> If a site takes you 8 hours at &pound;150, that's under &pound;19/hour before you count the outreach that found the client. That's fine when you're learning and building a portfolio. It becomes a trap if you're still there in a year. <strong>Plan to raise your price after 5 completed sites.</strong></p>
+
+  <h3>Your price list</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Package</th><th>Price</th><th>What's included</th><th>Your time</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Starter</b><br><span class="small">One-page website</span></td>
+        <td><b>&pound;150</b><br><span class="small">(&pound;120 founding rate)</span></td>
+        <td>Single scrolling page: hero + tap-to-call, services, gallery, reviews, service area, contact form, footer. Mobile-first, fast, basic SEO tags. Files handed over. One round of changes.</td>
+        <td>6&ndash;9 hrs</td>
+      </tr>
+      <tr>
+        <td><b>Standard</b><br><span class="small">Small business website</span></td>
+        <td><b>&pound;250</b></td>
+        <td>Up to 5 pages (Home, Services, Gallery, About, Contact), everything in Starter, plus a contact form that emails them, Google Maps embed, and per-page SEO titles/descriptions. Two rounds of changes.</td>
+        <td>10&ndash;15 hrs</td>
+      </tr>
+      <tr>
+        <td><b>Plus</b><br><span class="small">Only if they ask</span></td>
+        <td><b>&pound;400</b></td>
+        <td>Up to 8 pages, custom design rather than your template, blog-style page, and a written handover guide.</td>
+        <td>18&ndash;25 hrs</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <p class="small">Keeping Standard at &pound;250 (just above your stated range) matters: it gives Starter something to be cheaper <em>than</em>. A single option with no comparison feels like a random number; two options turn the question from "yes or no" into "which one".</p>
+
+  <h4>Optional extras &mdash; simple, fixed, no negotiating</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Extra</th><th>Price</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Extra page</td><td>&pound;40</td><td>Beyond the package allowance</td></tr>
+      <tr><td>Simple logo (text-based, in Canva)</td><td>&pound;30</td><td>Only if they genuinely have none</td></tr>
+      <tr><td>Writing their page copy</td><td>&pound;40</td><td>Most clients need this and don't realise it. Your most common upsell.</td></tr>
+      <tr><td>Photo editing / cropping (up to 20)</td><td>&pound;25</td><td>Their photos are usually 6MB phone snaps</td></tr>
+      <tr><td>Extra revision round (after the included ones)</td><td>&pound;30</td><td><b>Include this on the quote.</b> It's what stops endless free changes.</td></tr>
+      <tr><td>Rush delivery (under 5 days)</td><td>+&pound;50</td><td>Charge for urgency, always</td></tr>
+      <tr><td>Uploading the files to their hosting for them</td><td>&pound;30</td><td>Only if they ask &mdash; see Section 14. One-off, not a support contract.</td></tr>
+      <tr><td>Future changes after handover</td><td>&pound;25/hr, minimum 1 hr</td><td>Say this up front so "can you just quickly&hellip;" has an answer</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Payment terms &mdash; keep them identical every time</h3>
+  <ul>
+    <li><b>50% deposit before you start any work.</b> Non-negotiable, even for people you know. It filters out time-wasters better than anything else and it means you're never fully unpaid.</li>
+    <li><b>50% on approval, before you hand over the files.</b> The files are your leverage; never give them up before the final payment. Show a live preview link instead.</li>
+    <li><b>Deposit is non-refundable once you've started designing</b> &mdash; state this in writing before they pay.</li>
+    <li><b>Prices are for the package as written.</b> Anything not on the list is an extra.</li>
+  </ul>
+
+  <h3>When and how to raise your price</h3>
+  <div class="tw"><table>
+    <thead><tr><th>After&hellip;</th><th>Starter price</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>0&ndash;3 sites</td><td>&pound;120</td><td>Founding rate, in exchange for a testimonial</td></tr>
+      <tr><td>3&ndash;5 sites</td><td>&pound;150</td><td>You have same-niche proof now</td></tr>
+      <tr><td>5&ndash;10 sites</td><td>&pound;250</td><td>You're faster and your work is better</td></tr>
+      <tr><td>10+ sites</td><td>&pound;400&ndash;&pound;600</td><td>You have a real portfolio, reviews and referrals</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>The signal to raise:</b> when nobody ever hesitates at your price, it's too low. You should be losing roughly one in five prospects on price. If you're losing none, you're leaving money behind.</p>
+</section>
+
+<!-- ============ 12 CLOSING ============ -->
+<section id="closing">
+  <div class="sec-head"><span class="sec-num">12</span><h2>Closing the client</h2></div>
+  <p class="lede">Word-for-word answers to the eight things people actually say. Read each one out loud once so it sounds like you, not like a script.</p>
+
+  <div class="callout">
+    <strong>Three principles behind every answer below</strong>
+    (1) <b>Answer the question directly and immediately.</b> Dodging a price question destroys trust instantly. (2) <b>End every reply with a question</b> so the conversation can't stall. (3) <b>Try to move it to a phone call.</b> A 10-minute call closes what twelve emails won't.
+  </div>
+
+  <details open><summary>&ldquo;How much?&rdquo;</summary>
+    <p><b>Say:</b> "A one-page site is &pound;150 &mdash; that covers your services, gallery, reviews and a tap-to-call button. If you want separate pages for each service it's &pound;250. Either way it's a one-off, you get the files, and there's nothing monthly. Which sounds closer to what you need?"</p>
+    <p class="small"><b>Why it works:</b> a straight number, then two options, then a question. Never say "it depends" &mdash; that's the answer of someone who's about to make a number up.</p>
+  </details>
+
+  <details><summary>&ldquo;Can I see examples?&rdquo;</summary>
+    <p><b>Say:</b> "Yes &mdash; here are two I've built for <mark>[detailers]</mark>: <mark>[link]</mark> and <mark>[link]</mark>. Have a look on your phone, that's where it matters. Actually, want me to mock up your homepage in the same style so you can see yours specifically? Takes me half an hour and there's no charge."</p>
+    <p class="small"><b>Why it works:</b> if your examples are thin, the free mockup instantly replaces the portfolio question with a much better conversation. Turn a weakness into your close.</p>
+  </details>
+
+  <details><summary>&ldquo;I'll think about it.&rdquo;</summary>
+    <p><b>Say:</b> "No problem at all. Just so I know I've actually answered everything &mdash; is it the price, the timing, or are you not sure what it'd end up looking like?"</p>
+    <p class="small"><b>Why it works:</b> "I'll think about it" almost always means one specific unspoken objection. This question surfaces it without pressure. Then: whatever they say, answer it and offer one concrete next step ("shall I put the mock-up together and we'll see?"). Add a follow-up date of +7 days in your sheet and actually follow up &mdash; a large share of these turn into sales weeks later.</p>
+  </details>
+
+  <details><summary>&ldquo;We already have a website.&rdquo;</summary>
+    <p><b>Say:</b> "I saw it &mdash; that's actually why I got in touch. On my phone <mark>[the text needs zooming in and the number isn't tappable]</mark>, and most people looking for <mark>[a detailer]</mark> are on a phone. Not saying you need to replace it today, but would you like me to send a 60-second video showing what I mean? Free, and you can ignore it if you disagree."</p>
+    <p class="small"><b>Why it works:</b> you never criticise their site as a whole (they may have made it themselves, or paid for it). You name one specific, checkable, unemotional fact and offer proof instead of an argument.</p>
+  </details>
+
+  <details><summary>&ldquo;We're not interested.&rdquo;</summary>
+    <p><b>Say:</b> "Understood &mdash; thanks for replying, most people don't. I'll leave you to it. If it ever moves up the list, I'm at this address. All the best with <mark>[Business Name]</mark>."</p>
+    <p class="small"><b>Why it works:</b> you never argue with a no. Mark them <b>Not interested</b> and stop contacting them. Gracious exits produce a surprising number of enquiries six months later &mdash; and if they say "don't contact me again", mark <b>Do not contact</b> and honour it permanently.</p>
+  </details>
+
+  <details><summary>&ldquo;Can you make it cheaper?&rdquo;</summary>
+    <p><b>Say:</b> "I can't drop the price for the same work &mdash; but I can make it smaller. The &pound;150 one-pager is already my simplest package. If that's still over budget I could do a cut-down version with just the hero, services and contact section for &pound;100, and you can add the gallery later. Would that work better?"</p>
+    <p class="small"><b>Why it works:</b> you never discount &mdash; you reduce scope. Discounting teaches the client your prices are made up and makes every future conversation a negotiation. Trading less work for less money is fair to both of you. A second acceptable move: "I can do &pound;130 if you can pay the full amount up front and get me the photos this week."</p>
+  </details>
+
+  <details><summary>&ldquo;How long will it take?&rdquo;</summary>
+    <p><b>Say:</b> "About 7&ndash;10 days from when you send me your photos and text &mdash; and honestly, that's the part that decides it. If you get me the content on Monday you'll have a preview link by the weekend."</p>
+    <p class="small"><b>Why it works:</b> it's realistic (never promise 48 hours), and it quietly makes the deadline depend on <em>them</em> sending content. Late content is the single biggest cause of overrunning projects. Always quote longer than you think &mdash; delivering early is free goodwill.</p>
+  </details>
+
+  <details><summary>&ldquo;What do I get?&rdquo;</summary>
+    <p><b>Say:</b> "You get a complete website as a folder of files &mdash; the pages, the styling, and your images, all optimised. You upload it to your own hosting (Hostinger and similar are around &pound;3/month) or I can upload it for you for &pound;30. You own it outright, forever. Nothing to pay me monthly, and if you ever want to move it somewhere else you can, because it's just files. I'll also send you a one-page guide on how to put it live."</p>
+    <p class="small"><b>Why it works:</b> it turns your limitation (no hosting, no maintenance) into the headline benefit: <b>you own it, no lock-in, no monthly fee</b>. That is a genuine advantage over most agencies and you should say it in every conversation.</p>
+  </details>
+
+  <h3>Three more you'll hear</h3>
+  <details><summary>&ldquo;How old are you?&rdquo; / &ldquo;Are you a proper company?&rdquo;</summary>
+    <p><b>Say:</b> "I'm 16 &mdash; I build websites and I work for myself. Here are two sites I've built: <mark>[link]</mark>. Have a look and judge the work; if it's not good enough that's completely fair. I take half up front and half when you're happy with it, so you're not risking much either way."</p>
+    <p class="small"><b>Why it works:</b> straight answer, no apology, immediately redirect to evidence, then remove their risk. Some people will say no because of your age &mdash; that's a small number and not worth lying over. Most small business owners care about the work and the price, and several will actively like supporting a young person.</p>
+  </details>
+
+  <details><summary>&ldquo;Will you keep updating it for me?&rdquo;</summary>
+    <p><b>Say:</b> "The build is a one-off, and then it's yours. If you want changes later I charge &pound;25/hour with a one-hour minimum &mdash; most small tweaks are inside that. What I don't do is hosting or a monthly management fee, which is why the price is what it is."</p>
+  </details>
+
+  <details><summary>&ldquo;Can you do it for free and I'll pay you if I like it?&rdquo;</summary>
+    <p><b>Say:</b> "I do a free mock-up of the homepage so you can see the style &mdash; that's the part I do for free. For the full build I take 50% up front, because that's what keeps me from having twenty half-finished sites. Shall I do the mock-up first so you can decide with something in front of you?"</p>
+    <p class="small"><b>Never build a full site on spec.</b> The free mockup already answers this question and costs you 25 minutes instead of 8 hours.</p>
+  </details>
+
+  <h3>The close itself</h3>
+  <p>When they've said yes in principle, don't drift. Send exactly this:</p>
+  <div class="tpl">
+    <div class="tpl-head"><b>Confirmation email &mdash; send within an hour of the call</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi <mark>[Name]</mark>, great to speak — here's everything in writing so
+we're both clear.
+
+WHAT I'M BUILDING
+One-page website for <mark>[Business Name]</mark>: hero with tap-to-call,
+services, photo gallery, reviews, service area, contact form.
+Mobile-first.
+
+PRICE
+<mark>£150</mark> total. <mark>£75</mark> now to start, <mark>£75</mark> when you've approved it and
+before I send the files.
+
+INCLUDED
+One round of changes after the first draft. Extra rounds are £30.
+
+TIMELINE
+7–10 days from the day you send me your content.
+
+WHAT I NEED FROM YOU
+I've attached a short questionnaire — logo, photos, services,
+prices, contact details and opening hours. The sooner that comes
+back, the sooner you get the preview.
+
+WHAT YOU GET AT THE END
+A folder of website files that are yours to keep, plus a one-page
+guide to putting them on your hosting. No monthly fees.
+
+Happy with all that? Reply "yes" and I'll send the payment
+details.
+
+<mark>[Your name]</mark></pre>
+  </div>
+  <p class="small">This email is doing a lot of quiet work: it fixes the scope, fixes the price, fixes the revision limit, makes the timeline conditional on their content, and gets a written "yes" you can point back to if anything goes sideways. Send it every single time.</p>
+</section>
+
+<!-- ============ 13 AFTER THE SALE ============ -->
+<section id="aftersale">
+  <div class="sec-head"><span class="sec-num">13</span><h2>After the sale &mdash; what to collect</h2></div>
+  <p class="lede">Projects don't fail because the code is hard. They fail because you started building before you had the content, then spent three weeks chasing photos. Collect everything first, in one go.</p>
+
+  <div class="callout warn">
+    <strong>The single most important rule in this section</strong>
+    <b>Do not start building until the questionnaire comes back and the deposit has cleared.</b> If you start early you lose all leverage, the project drifts, and "waiting on the client" becomes your fault in their memory. Say it politely up front: "I'll start the moment the content lands."
+  </div>
+
+  <h3>The intake questionnaire</h3>
+  <p>Build this once as a Google Form (with a file-upload question for the logo and images) and reuse it forever. Send the link in the confirmation email.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Ask for</th><th>Why / what to say</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><b>Exact business name</b></td><td>Including any Ltd. Ask how they want it capitalised &mdash; people care.</td></tr>
+      <tr><td>2</td><td><b>Tagline / one line about what you do</b></td><td>Goes in the hero. If they can't write one, offer to.</td></tr>
+      <tr><td>3</td><td><b>Logo files</b></td><td>Ask for PNG with transparent background or SVG. If all they have is a Facebook profile picture, say so now and offer the &pound;30 logo extra.</td></tr>
+      <tr><td>4</td><td><b>Brand colours</b></td><td>"Any specific colours? Hex codes if you have them &mdash; otherwise I'll pull them from your logo."</td></tr>
+      <tr><td>5</td><td><b>Photos</b></td><td>"At least 8&ndash;12 good photos of your work, plus one of you or your van if you have it." Give a Google Drive folder link to upload into. Photos of the actual owner increase enquiries noticeably.</td></tr>
+      <tr><td>6</td><td><b>Services list, in their words</b></td><td>Name, one-line description, and price or "from &pound;X".</td></tr>
+      <tr><td>7</td><td><b>Prices</b></td><td>Ask directly: show them, or "from" prices, or none? Their call &mdash; but pushing for at least "from" prices genuinely converts better.</td></tr>
+      <tr><td>8</td><td><b>Phone number</b></td><td>The one they actually answer. This becomes the tap-to-call button.</td></tr>
+      <tr><td>9</td><td><b>Email address</b></td><td>Where the contact form should send enquiries.</td></tr>
+      <tr><td>10</td><td><b>Address or service area</b></td><td>"Do you want a full address shown, or just the areas you cover?" Many mobile businesses work from home and must not publish the address.</td></tr>
+      <tr><td>11</td><td><b>Opening hours</b></td><td>Including whether they take calls at weekends.</td></tr>
+      <tr><td>12</td><td><b>Social media links</b></td><td>Full URLs, not handles &mdash; saves you guessing.</td></tr>
+      <tr><td>13</td><td><b>Reviews / testimonials</b></td><td>"Send me 3 you're proud of, or I'll pull your best Google reviews &mdash; is that OK?" Always get their permission.</td></tr>
+      <tr><td>14</td><td><b>Pages they want</b></td><td>Confirm against the package. If they list 7 pages on a one-page package, sort it out now, not at delivery.</td></tr>
+      <tr><td>15</td><td><b>3 websites they like</b></td><td>"Any style &mdash; doesn't have to be your industry. Tell me what you like about each." The highest-value question on the form: it prevents the "it's just not what I imagined" conversation.</td></tr>
+      <tr><td>16</td><td><b>3 websites they dislike</b></td><td>Often more informative than the ones they like.</td></tr>
+      <tr><td>17</td><td><b>Certifications / insurance / memberships</b></td><td>City &amp; Guilds, public liability, Checkatrade badge, DBS. Strong trust signals on a trades site.</td></tr>
+      <tr><td>18</td><td><b>Do they own a domain?</b></td><td>If yes, get the name. If no, tell them what to buy and roughly the cost &mdash; but don't buy it for them or in your name.</td></tr>
+      <tr><td>19</td><td><b>Do they have hosting?</b></td><td>Which provider. Shapes your handover instructions.</td></tr>
+      <tr><td>20</td><td><b>Anything that must NOT go on the site</b></td><td>Home address, a personal mobile, an old business name, a price they've stopped offering.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Your project checklist</h3>
+  <ul class="chk" data-store="proj">
+    <li><input type="checkbox" id="p1"><label for="p1">Confirmation email sent and replied to with a written "yes"</label></li>
+    <li><input type="checkbox" id="p2"><label for="p2">Deposit received and cleared (never start on a promise)</label></li>
+    <li><input type="checkbox" id="p3"><label for="p3">Questionnaire returned in full &mdash; chase the gaps once, in one message</label></li>
+    <li><input type="checkbox" id="p4"><label for="p4">All images received, then compressed and converted to WebP</label></li>
+    <li><input type="checkbox" id="p5"><label for="p5">Copy written or approved &mdash; nothing on the page is placeholder text</label></li>
+    <li><input type="checkbox" id="p6"><label for="p6">Build from your template folder, not from scratch</label></li>
+    <li><input type="checkbox" id="p7"><label for="p7">Tested on a real phone, a tablet width and a laptop</label></li>
+    <li><input type="checkbox" id="p8"><label for="p8">Every link, the phone link, the map and the contact form actually tested</label></li>
+    <li><input type="checkbox" id="p9"><label for="p9">Page title, meta description, favicon and Open Graph image set</label></li>
+    <li><input type="checkbox" id="p10"><label for="p10">Spellcheck &mdash; read it out loud once. Typos in a client's business name are unforgivable.</label></li>
+    <li><input type="checkbox" id="p11"><label for="p11">Preview link sent, feedback collected in <b>one</b> message (ask them to list everything at once)</label></li>
+    <li><input type="checkbox" id="p12"><label for="p12">Revisions done &mdash; and the client told which round they're on</label></li>
+    <li><input type="checkbox" id="p13"><label for="p13">Final payment received</label></li>
+    <li><input type="checkbox" id="p14"><label for="p14">Files delivered + handover guide sent</label></li>
+    <li><input type="checkbox" id="p15"><label for="p15">Testimonial requested and permission to show the site as an example</label></li>
+    <li><input type="checkbox" id="p16"><label for="p16">Referral asked for &mdash; "know two others who'd want this?"</label></li>
+    <li><input type="checkbox" id="p17"><label for="p17">Posted the before/after publicly (with permission)</label></li>
+  </ul>
+</section>
+
+<!-- ============ 14 DELIVERY ============ -->
+<section id="delivery">
+  <div class="sec-head"><span class="sec-num">14</span><h2>Delivery</h2></div>
+  <p class="lede">Your model is: build the files, hand them over, walk away cleanly. Done properly this is a feature, not a limitation &mdash; but only if the handover is genuinely easy for a non-technical person.</p>
+
+  <h3>How to package the files</h3>
+  <div class="tpl">
+    <div class="tpl-head"><b>Folder structure to deliver</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>apex-valeting-website/
+├── index.html
+├── about.html            (only if multi-page)
+├── contact.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+├── images/
+│   ├── logo.svg
+│   ├── hero.webp
+│   └── gallery-01.webp ...
+├── favicon.ico
+├── robots.txt
+├── sitemap.xml
+└── README-HOW-TO-UPLOAD.txt</pre>
+  </div>
+  <ul>
+    <li><b>Zip the whole folder</b> and name it clearly: <code>apex-valeting-website-final-2026-03-14.zip</code>.</li>
+    <li><b>Use relative paths only</b> (<code>images/hero.webp</code>, never <code>/Users/you/Desktop/...</code>). Test by opening <code>index.html</code> directly from the folder &mdash; if it looks right, the paths are right.</li>
+    <li><b>Compress every image</b> and convert to WebP. This is often the difference between a 6-second and a 1-second load.</li>
+    <li><b>No build step, no npm, no frameworks.</b> Plain HTML/CSS/JS is exactly right here &mdash; it uploads anywhere and it'll still work in five years.</li>
+    <li><b>Send it two ways:</b> a Google Drive / Dropbox link (email attachments over ~20MB bounce) <em>and</em> keep your own copy forever. Clients lose files and come back a year later.</li>
+    <li><b>Do a contact-form decision:</b> a static site can't email on its own. Either use a free form service (Formspree, Web3Forms, Formsubmit) configured to their email address, or use a <code>mailto:</code> link, or skip the form and rely on tap-to-call. Decide this <em>during</em> the build, and tell them which it is.</li>
+  </ul>
+
+  <h3>The handover guide to include</h3>
+  <p>Put this in <code>README-HOW-TO-UPLOAD.txt</code> and paste it into the delivery email too. Adapt the host name to whatever they use.</p>
+  <div class="tpl">
+    <div class="tpl-head"><b>README-HOW-TO-UPLOAD.txt</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>HOW TO PUT YOUR WEBSITE ONLINE
+==============================
+
+WHAT YOU NEED
+1. A domain name (e.g. apexvaleting.co.uk) — about £10/year
+2. Hosting — about £3/month. Hostinger, Namecheap, IONOS,
+   or 20i all work. Any "shared hosting" plan is plenty; you do
+   not need WordPress hosting.
+
+UPLOADING (Hostinger example — other hosts are nearly identical)
+1. Log in to your hosting account
+2. Open "File Manager" (sometimes inside cPanel or hPanel)
+3. Open the folder called public_html
+4. Delete anything already in there (usually a default page)
+5. Click Upload and select the .zip file I sent you
+6. Right-click the uploaded zip and choose "Extract"
+7. Make sure index.html sits directly inside public_html,
+   NOT inside another folder. This is the one thing people
+   get wrong.
+8. Visit your domain — the site should be live within minutes
+
+CONNECTING YOUR DOMAIN
+If you bought the domain from the same company as the hosting,
+this is usually automatic. If not, their support team will point
+the domain for you — it's a standard request and it's free.
+
+MAKING SMALL TEXT CHANGES YOURSELF
+All the text lives in the .html files. You can open them in
+Notepad (Windows) or TextEdit (Mac), change the words between
+the tags, save, and re-upload that one file. Keep a backup copy
+first.
+
+KEEP THIS FOLDER
+These files are yours. If you ever move hosting company, you
+just upload the same folder again.
+
+NEED CHANGES LATER?
+Email me at [your email]. Small changes are £25/hour with a
+one-hour minimum. I don't do hosting or monthly maintenance —
+your hosting company's support handles anything to do with the
+server, domain or email.</pre>
+  </div>
+
+  <h3>Where to draw the line</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Request</th><th>Your answer</th></tr></thead>
+    <tbody>
+      <tr><td>"Can you upload it for me?"</td><td><b>Yes &mdash; &pound;30 one-off.</b> Get them to create the hosting account in <em>their own name</em> and share access temporarily. Never buy hosting or a domain in your name for a client: if the relationship ends you're stuck holding their business's identity, and they may believe they own something they don't.</td></tr>
+      <tr><td>"Can you host it for me?"</td><td><b>No.</b> "I don't do hosting &mdash; it means a monthly fee and I'd rather you owned everything. Hostinger is about &pound;3/month and I'll give you step-by-step instructions." Hosting for clients means you're on the hook at 2am when a server goes down.</td></tr>
+      <tr><td>"Can you sort my emails / domain / Google listing?"</td><td><b>Out of scope,</b> but be helpful for 60 seconds: point them at their host's support, or offer it as a paid extra if you actually know how.</td></tr>
+      <tr><td>"Can you change this one thing?" (a week later)</td><td><b>Do genuinely tiny things free once</b> &mdash; a typo, a wrong phone digit. Beyond that: &pound;25/hour, minimum one hour, quoted before you touch it. Be warm about it, but say the number.</td></tr>
+      <tr><td>"It's broken!"</td><td><b>Check whether it's your files or their hosting.</b> If your code, fix it free, immediately, no argument &mdash; your reputation is worth more than the hour. If it's their host or domain, tell them plainly and point them at support.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tpl">
+    <div class="tpl-head"><b>Delivery email</b><button class="copy" onclick="cp(this)">Copy</button></div>
+<pre>Hi <mark>[Name]</mark>,
+
+Final payment received, thank you — here's your website:
+
+<mark>[Google Drive link]</mark>
+
+Inside the zip you'll find all the files plus a text file called
+README-HOW-TO-UPLOAD, which walks through putting it live on
+<mark>[Hostinger]</mark> step by step. It's about a 10-minute job.
+
+These files are yours to keep. If you ever change hosting
+company you just upload the same folder again.
+
+Two small things:
+1. If you're happy with how it turned out, would you mind sending
+   me a couple of sentences I can use as a review? Genuinely
+   helps me a lot.
+2. If you know one or two other <mark>[detailers]</mark> who could do with
+   the same thing, I'd really appreciate an introduction.
+
+Thanks for trusting me with it — it was a good one to build.
+
+<mark>[Your name]</mark></pre>
+  </div>
+</section>
+
+<!-- ============ 15 LEGAL ============ -->
+<section id="legal">
+  <div class="sec-head"><span class="sec-num">15</span><h2>Legal &amp; safety considerations</h2></div>
+
+  <div class="callout bad">
+    <strong>Read this first</strong>
+    Nothing here is legal, tax or financial advice, and none of it is guaranteed to be correct for your situation or up to date. Rules differ by country and change over time, and being under 18 changes several of them. Treat this section as <b>a list of things to go and check</b>, not a set of answers. Go through it with a parent or guardian, and for anything involving real money or a dispute, get proper advice from HMRC (or your country's tax authority), Citizens Advice, or a qualified professional.
+  </div>
+
+  <h3>Contracts</h3>
+  <ul>
+    <li><b>Always put the deal in writing</b>, even for a &pound;120 job. The confirmation email in <a href="#closing">Section 12</a> is enough for work at this size &mdash; scope, price, payment split, revision limit, timeline, what they get at the end. Get a written "yes" back and keep it.</li>
+    <li><b>Contracts involving under-18s work differently.</b> In England and Wales, contracts with minors are generally not enforceable against the minor in the same way as with an adult, with certain exceptions. What this means in practice varies, and it can cut both ways &mdash; including affecting how easily you could enforce payment. <b>Check this with a parent/guardian, and look at Citizens Advice, before you rely on a contract for anything significant.</b></li>
+    <li><b>A practical workaround most people use:</b> a parent or guardian contracts with the client and you do the work, or they co-sign. Discuss whether that's right for you. It also gives you an adult to escalate to if a client behaves badly.</li>
+    <li><b>Say who owns what.</b> Simple and fair: "on final payment, the client owns the website files. The developer may show the work as a portfolio example." One sentence, in the confirmation email.</li>
+    <li><b>Never promise results.</b> Don't write "you'll rank #1 on Google" or "this will double your enquiries" anywhere. Promise the deliverable, not the outcome.</li>
+  </ul>
+
+  <h3>Payments</h3>
+  <ul>
+    <li><b>Almost every payment processor requires the account holder to be 18+</b> &mdash; Stripe, PayPal Business, Wise Business, and most business bank accounts. Check the current terms of any service you're considering. <b>Do not open an account with a false date of birth</b>; if it's discovered your funds can be frozen and the account closed, and it's dishonest.</li>
+    <li><b>The legitimate options</b>, to discuss with a parent/guardian: (1) a parent/guardian holds the payment account and passes money to you, keeping a clear record of what's yours; (2) direct bank transfer to a young person's account &mdash; several UK banks offer accounts from age 11&ndash;16, though features and eligibility vary and business accounts usually don't; (3) for very small local jobs, cash with a written receipt.</li>
+    <li><b>50% deposit, 50% on approval before file handover.</b> This is the whole of your payment protection at this price point &mdash; use it every time, including with people you know.</li>
+    <li><b>Send a numbered invoice</b> for every job: your name, address (a parent's address is fine &mdash; think about whether you want your home address on documents you send to strangers, and discuss it), date, invoice number, description, amount, payment details, due date. Keep every one.</li>
+    <li><b>Be alert to scams.</b> The classic: someone "accidentally" overpays and asks you to refund the difference &mdash; their original payment is then reversed and you're out of pocket. Also: requests to pay by an unusual method, urgency pressure, and anyone wanting your bank login. If it feels off, it is; talk to a parent before acting.</li>
+  </ul>
+
+  <h3>Tax</h3>
+  <ul>
+    <li><b>There is no minimum age for paying tax.</b> Being 16 does not exempt you from it.</li>
+    <li><b>In the UK there is a "trading allowance"</b> which, at the time of writing, lets you earn up to <b>&pound;1,000</b> of self-employed income in a tax year without needing to register for Self Assessment. Above that you generally need to register as self-employed with HMRC and file a tax return. <b>Check the current threshold and rules on gov.uk yourself</b> &mdash; figures change.</li>
+    <li><b>Keep records from your very first sale:</b> date, client, amount, and any costs (domain, hosting, tools). A tab in your spreadsheet is fine. Doing this from day one costs minutes; reconstructing a year later is miserable.</li>
+    <li><b>If you're outside the UK, or trading with clients abroad,</b> the rules will differ. Look up your own country's rules and speak to a parent/guardian.</li>
+    <li><b>Also worth checking:</b> whether income affects any benefits your household receives, and (if you're at school/college) whether there are any rules about paid work during term time.</li>
+  </ul>
+
+  <h3>Refunds and disputes</h3>
+  <ul>
+    <li><b>State your refund position in writing before payment:</b> e.g. "the deposit is non-refundable once design work has begun; if you cancel before I start, the deposit is returned in full." Simple and fair.</li>
+    <li><b>Business-to-business sales</b> generally don't carry the same automatic consumer cancellation rights as selling to a private individual &mdash; but a sole trader buying something can sometimes count as a consumer depending on context. Don't guess: if a dispute gets serious, check Citizens Advice.</li>
+    <li><b>The practical rule that avoids nearly all disputes:</b> a clear written scope, a stated revision limit, a preview before final payment, and replying quickly when something's wrong.</li>
+    <li><b>If a client refuses to pay the final 50%:</b> you still hold the files. Stay calm and polite, restate the agreement once in writing, and don't threaten. For a &pound;75 balance, chasing it further is usually not worth your time or stress &mdash; take the lesson and move on. Talk to a parent before escalating anything.</li>
+  </ul>
+
+  <h3>Platform age requirements</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Platform</th><th>Typical stated minimum</th><th>What to do</th></tr></thead>
+    <tbody>
+      <tr><td>Google account / Gmail</td><td>13+ in most countries</td><td>Fine at 16.</td></tr>
+      <tr><td>Instagram / Facebook / TikTok</td><td>13+</td><td>Fine at 16. Note bulk unsolicited DMing can breach their terms regardless of age.</td></tr>
+      <tr><td>LinkedIn</td><td>16+</td><td>Check the current terms for your country.</td></tr>
+      <tr><td>Apollo, Instantly, Smartlead, Lemlist, Clay</td><td>Typically 18+</td><td>Check each one. If 18+, don't sign up alone &mdash; adult-held account or skip the tool.</td></tr>
+      <tr><td>Stripe, PayPal Business, most business banking</td><td>18+</td><td>Adult account holder, or use direct bank transfer.</td></tr>
+      <tr><td>Fiverr, Upwork, PeoplePerHour</td><td>Typically 18+</td><td>Check current terms; some allow guardian-supervised arrangements. Never falsify your age.</td></tr>
+      <tr><td>Domain registrars &amp; hosting</td><td>Often 18+ to contract</td><td>Another reason clients should buy their own hosting in their own name.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Terms of service change constantly. Check the actual terms of any platform at the time you sign up &mdash; and if it says 18+, that's a rule to work around honestly, not to lie about.</p>
+
+  <h3>Cold email rules</h3>
+  <ul>
+    <li><b>In the UK, electronic marketing is governed by PECR alongside UK GDPR.</b> A commonly cited distinction is that marketing email to a "corporate subscriber" (a limited company, LLP, or public body) is treated differently from email to an "individual subscriber" &mdash; and <b>sole traders and some partnerships are generally treated as individuals</b>, which is more restrictive. <b>Many of your prospects are sole traders.</b> Read the ICO's guidance on direct marketing yourself before you scale up &mdash; it's written in plain English and it's free.</li>
+    <li><b>In the EU</b> the GDPR/ePrivacy position is broadly similar; <b>in the US</b>, CAN-SPAM allows cold B2B email with conditions (accurate headers, a physical address, a working opt-out honoured promptly); <b>in Canada</b>, CASL is stricter and generally requires consent. If you email internationally, the recipient's country's rules matter.</li>
+    <li><b>Regardless of jurisdiction, always:</b> use your real name and real contact details, never fake the sender or subject line, include a clear way to opt out, act on opt-outs immediately and permanently, and keep a suppression list.</li>
+    <li><b>Practical safety margin:</b> stay low-volume, highly personalised and genuinely relevant. The businesses you're emailing are ones you can point at a specific problem for. That's outreach, not spam &mdash; and it's also just a better way to sell.</li>
+  </ul>
+
+  <h3>Privacy and data protection</h3>
+  <ul>
+    <li><b>Your lead spreadsheet is personal data</b> when it contains names, emails or phone numbers of individuals (including sole traders). UK GDPR applies to how you store and use it.</li>
+    <li><b>Practical steps:</b> keep the sheet private (never "anyone with the link"), collect only what you need for outreach, delete leads you've abandoned, and delete someone's data promptly if they ask you to.</li>
+    <li><b>If someone asks what data you hold on them,</b> answer honestly and simply, and delete it if they want you to.</li>
+    <li><b>On client websites:</b> if you add a contact form, the client is collecting data from their visitors. Add a short privacy notice page and mention cookies if you add anything that sets them (analytics, embedded maps or videos can). Tell the client it's their responsibility as the site owner &mdash; and don't add analytics or tracking they didn't ask for.</li>
+    <li><b>Check whether you need to register with the ICO.</b> Some small-scale processing is exempt and there's a self-assessment tool on ico.org.uk. Look it up rather than assuming.</li>
+  </ul>
+
+  <h3>Personal safety</h3>
+  <ul>
+    <li><b>Tell a parent or guardian what you're doing</b>, who you're talking to, and how money is moving. Not because you need permission for everything &mdash; because someone should know.</li>
+    <li><b>Don't meet clients alone.</b> Video call, phone call or email is enough for every job in this manual. If an in-person meeting genuinely makes sense, bring an adult, meet somewhere public, and tell someone where you are.</li>
+    <li><b>Think carefully about your home address</b> on invoices, WHOIS records and your website footer. Ask your parent/guardian about using their address, or use email only.</li>
+    <li><b>Trust the feeling.</b> If a "client" is pushy, secretive about payment, asks you to do anything you're uneasy about, or wants to move to a private chat app straight away &mdash; stop and tell an adult. You're allowed to walk away from any job for any reason.</li>
+    <li><b>Protect your time.</b> School comes first, and clients who message at 11pm can be answered at 7am. Set the expectation early: "I reply to messages in the evenings."</li>
+  </ul>
+
+  <h3>Where to check things</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Question</th><th>Where to look (UK)</th></tr></thead>
+    <tbody>
+      <tr><td>Do I need to register as self-employed? What's the trading allowance now?</td><td>gov.uk (HMRC)</td></tr>
+      <tr><td>Can I cold email sole traders? What must I include?</td><td>ico.org.uk &mdash; direct marketing guidance</td></tr>
+      <tr><td>Do I need to register with the ICO?</td><td>ico.org.uk &mdash; registration self-assessment</td></tr>
+      <tr><td>Contracts and under-18s; a client won't pay</td><td>citizensadvice.org.uk, and a parent/guardian</td></tr>
+      <tr><td>Is this business real?</td><td>find-and-update.company-information.service.gov.uk</td></tr>
+      <tr><td>Anything with real money at stake</td><td>A qualified accountant or solicitor &mdash; a one-off consultation is cheap compared to getting it wrong</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ SPEED ============ -->
+<section id="speed">
+  <div class="sec-head"><span class="sec-num">SCALE</span><h2>Going faster without becoming a spammer</h2></div>
+  <p class="lede">The goal is to research and contact dozens of qualified prospects a day without typing anything twice &mdash; while every message still looks handwritten. These are the leverage points, in the order you should add them.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>When</th><th>Add this</th><th>What it saves</th></tr></thead>
+    <tbody>
+      <tr><td>Week 1</td><td><b>Batching.</b> Find 30, then score 30, then send 30. Never interleave.</td><td>Roughly halves total time through context-switching alone. Free.</td></tr>
+      <tr><td>Week 1</td><td><b>Gmail Templates.</b> Settings &rarr; Advanced &rarr; Templates. Save your 3 emails + 3 follow-ups.</td><td>~40 seconds per email.</td></tr>
+      <tr><td>Week 2</td><td><b>Spreadsheet merge columns.</b> The formula in Section 4 writes a personalised opening line for every row at once.</td><td>You paste instead of composing. ~30 seconds each.</td></tr>
+      <tr><td>Week 2</td><td><b>Text expander</b> (Text Blaze / Magical). Type <code>/a1</code> &rarr; full template with cursor stops at each blank.</td><td>Biggest single speed win. Turns a 90-second email into 20 seconds.</td></tr>
+      <tr><td>Week 2</td><td><b>A reusable site template folder</b> with your hero, services grid, gallery, review block, contact section and footer as swappable components.</td><td>Cuts a mockup from 90 to 25 minutes, and a full build from 12 hours to 6.</td></tr>
+      <tr><td>Week 3</td><td><b>Saved objection replies</b> as Gmail canned responses &mdash; every answer in Section 12.</td><td>You reply within minutes instead of agonising over wording.</td></tr>
+      <tr><td>Week 3</td><td><b>A booking link</b> (Cal.com) in your signature.</td><td>Kills the six-email "when are you free?" thread.</td></tr>
+      <tr><td>Month 2</td><td><b>Gmail mail merge</b> (Mailmeteor) reading from your sheet with <code>{{Name}}</code>, <code>{{Business}}</code>, <code>{{Problem}}</code> merge fields.</td><td>40&ndash;50 personalised sends in 10 minutes, from your own inbox, keeping your own reputation.</td></tr>
+      <tr><td>Month 2</td><td><b>A directory/Maps scraper</b> (Instant Data Scraper, Outscraper) for the collection step &mdash; after checking terms of service.</td><td>Lead collection drops from 40 seconds to about 3 per business. Scoring still has to be human.</td></tr>
+      <tr><td>Month 3</td><td><b>Second niche, same system.</b> Duplicate the sheet, swap the words, build one demo.</td><td>Doubles your market with a day of work.</td></tr>
+      <tr><td>Ongoing</td><td><b>Referrals and public posting.</b> Every finished job = a testimonial request, a referral request, and a public before/after post.</td><td>Slowly replaces cold outreach entirely. This is the actual end goal.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn">
+    <strong>The one thing you must never automate</strong>
+    The first sentence and the named problem. The moment those become generic, your reply rate collapses to near zero and you're just another spammer in the folder. Automate the <em>typing</em>, never the <em>thinking</em>. A realistic ceiling for genuinely personalised outreach is roughly 40&ndash;60 messages a day &mdash; and 40 good ones will always beat 400 bad ones.
+  </div>
+
+  <h3>The mockup assembly line</h3>
+  <p>Mockups are your best-converting asset and the most time-consuming. Here's how to get one down to 25 minutes:</p>
+  <ol class="steps">
+    <li><b>Keep a folder called <code>_template</code></b> containing a finished one-page site with obvious placeholder tokens: <code>{{BUSINESS}}</code>, <code>{{PHONE}}</code>, <code>{{TAGLINE}}</code>, <code>{{ACCENT}}</code>.</li>
+    <li><b>Copy the folder,</b> rename it to the prospect.</li>
+    <li><b>Find-and-replace the tokens</b> across all files in your editor. 60 seconds.</li>
+    <li><b>Set one CSS variable</b> &mdash; <code>--accent</code> &mdash; pulled from their logo. The whole page recolours.</li>
+    <li><b>Drop in 4 of their photos</b> from their Google listing or Instagram, resized.</li>
+    <li><b>Paste 2 of their real Google reviews</b> into the review block.</li>
+    <li><b>Screenshot the top of the page on a phone-sized viewport</b> (Chrome DevTools &rarr; device toolbar &rarr; iPhone). Send that.</li>
+  </ol>
+  <p class="small">Once this is smooth, three mockups per weekend session is comfortable &mdash; and mockups convert several times better than plain emails, so that's the highest-value hour in your entire week.</p>
+</section>
+
+<!-- ============ DAILY CHECKLIST ============ -->
+<section id="daily">
+  <div class="sec-head"><span class="sec-num">DAILY</span><h2>Daily task checklist</h2>
+  <span class="progress-pill" id="dailyProg">0 / 0</span></div>
+  <p class="lede">Tick these off every day. Progress saves in this browser &mdash; hit reset each morning.</p>
+
+  <div class="grid g2">
+    <div class="day-col"><h4>Non-negotiables (30 min)</h4><div class="body">
+      <ul class="chk" data-store="daily">
+        <li><input type="checkbox" id="t1"><label for="t1">Sorted sheet by Follow-up Date and sent every follow-up due today</label></li>
+        <li><input type="checkbox" id="t2"><label for="t2">Replied to every inbound email, DM and missed call</label></li>
+        <li><input type="checkbox" id="t3"><label for="t3">Updated Response / Outcome on any row that moved</label></li>
+      </ul></div></div>
+    <div class="day-col"><h4>Pipeline (50 min)</h4><div class="body">
+      <ul class="chk" data-store="daily">
+        <li><input type="checkbox" id="t4"><label for="t4">Found 20 new leads (Maps or Instagram)</label></li>
+        <li><input type="checkbox" id="t5"><label for="t5">Scored 15 websites and wrote Top 2 Problems for each</label></li>
+        <li><input type="checkbox" id="t6"><label for="t6">Found contact details for at least 10 of them</label></li>
+        <li><input type="checkbox" id="t7"><label for="t7">Sent 15&ndash;20 personalised first-touch messages</label></li>
+        <li><input type="checkbox" id="t8"><label for="t8">Logged every send with the date and a follow-up date</label></li>
+      </ul></div></div>
+    <div class="day-col"><h4>Compounding (if time)</h4><div class="body">
+      <ul class="chk" data-store="daily">
+        <li><input type="checkbox" id="t9"><label for="t9">Warmed 5 Instagram accounts (follow, like, comment, story reply)</label></li>
+        <li><input type="checkbox" id="t10"><label for="t10">Built one mockup for a 70+ scoring prospect</label></li>
+        <li><input type="checkbox" id="t11"><label for="t11">Posted something publicly about the work</label></li>
+        <li><input type="checkbox" id="t12"><label for="t12">Improved one component in the template folder</label></li>
+      </ul></div></div>
+    <div class="day-col"><h4>End of day (2 min)</h4><div class="body">
+      <ul class="chk" data-store="daily">
+        <li><input type="checkbox" id="t13"><label for="t13">Wrote today's numbers in the tracker: sent / replies / calls</label></li>
+        <li><input type="checkbox" id="t14"><label for="t14">Tomorrow's leads are already in the sheet, ready to go</label></li>
+      </ul></div></div>
+  </div>
+  <button class="btn" onclick="resetGroup('daily')">Reset daily checklist</button>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section id="numbers">
+  <div class="sec-head"><span class="sec-num">MATH</span><h2>The numbers &mdash; what to actually expect</h2></div>
+  <p class="lede">Nobody tells beginners this, so they quit at exactly the point where it starts working. Here is the arithmetic.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Stage</th><th>Realistic rate</th><th>Per 100 first-touch messages</th></tr></thead>
+    <tbody>
+      <tr><td>Messages sent (email, personalised, with follow-ups)</td><td>&mdash;</td><td>100</td></tr>
+      <tr><td>Replies of any kind</td><td>5&ndash;10%</td><td>5&ndash;10</td></tr>
+      <tr><td>Positive / interested replies</td><td>~half of replies</td><td>3&ndash;5</td></tr>
+      <tr><td>Calls or real conversations</td><td>~60% of positives</td><td>2&ndash;3</td></tr>
+      <tr><td>Clients closed</td><td>~40% of conversations</td><td><b>1&ndash;2</b></td></tr>
+      <tr><td>Revenue at &pound;150</td><td>&mdash;</td><td><b>&pound;150&ndash;&pound;300</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <p><b>So: roughly 100 good messages per client.</b> At 15&ndash;20 a day, that's about 5&ndash;7 days of consistent work per client. Sending mockups to your top prospects can pull that number down towards 40&ndash;60 messages per client.</p>
+
+  <div class="grid g3">
+    <div class="kpi"><div class="n">1&ndash;2</div><div class="l">clients per 100 messages</div></div>
+    <div class="kpi"><div class="n">4&ndash;8</div><div class="l">clients in month 1&ndash;2 at this pace</div></div>
+    <div class="kpi"><div class="n">60%</div><div class="l">of replies come from follow-ups</div></div>
+  </div>
+
+  <h3>What to fix when the numbers are bad</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Symptom</th><th>Most likely cause</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>Almost nobody opens</td><td>Subject line, or you're landing in spam</td><td>Shorter, lowercase, include their business name. Check your SPF/DKIM. Cut sending volume for a week.</td></tr>
+      <tr><td>Opens but no replies</td><td>The email is about you, not them</td><td>Rewrite line 1. Name a specific checkable problem. Cut the email in half.</td></tr>
+      <tr><td>Replies but no calls</td><td>You're not asking clearly</td><td>End with one easy question. Offer the free mockup. Add a booking link.</td></tr>
+      <tr><td>Calls but no sales</td><td>Price hesitation or no trust</td><td>Lead with the two same-niche examples. Use the founding-client framing. Take the deposit on the call.</td></tr>
+      <tr><td>Sales but you're exhausted</td><td>Price too low / scope creep</td><td>Raise to &pound;250. Enforce the revision limit. Use the template folder.</td></tr>
+      <tr><td>Everything stalls after a client lands</td><td>You stopped prospecting</td><td>5 emails a day minimum, always, no exceptions.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout good">
+    <strong>The only real failure mode</strong>
+    Not sending. Every other problem on this page is a tuning problem with a known fix. Most people who fail at this don't fail because their emails were bad &mdash; they fail because they sent 30 messages over three weeks, got no reply, and concluded it doesn't work. It works at 100. Get to 100 first, then start optimising.
+  </div>
+</section>
+
+<footer style="text-align:center;color:var(--faint);font-size:.8rem;padding:10px 0 40px">
+  Client Acquisition Operating Manual &mdash; a working document. Update it as you learn what actually gets replies.<br>
+  Nothing here is legal, tax or financial advice. See Section 15.
+</footer>
+</main>
+</div>
+
+<script>
+/* ---------- theme ---------- */
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  var b=document.getElementById('themeBtn');
+  if(b) b.innerHTML = t==='dark' ? '☀ Light' : '☽ Dark';
+}
+function toggleTheme(){
+  var t = document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+  applyTheme(t); store('cae_theme',t);
+}
+applyTheme(load('cae_theme') || 'dark');
+
+/* ---------- copy buttons ---------- */
+function cp(btn){
+  var pre = btn.closest('.tpl').querySelector('pre');
+  var text = pre.innerText;
+  var done = function(){
+    var old = btn.textContent;
+    btn.textContent = 'Copied ✓'; btn.classList.add('done');
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+  } else { fallback(text, done); }
+}
+function fallback(text, done){
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ---------- checkbox persistence ---------- */
+function initChecks(){
+  document.querySelectorAll('.chk[data-store]').forEach(function(list){
+    var group = list.getAttribute('data-store');
+    list.querySelectorAll('input[type=checkbox]').forEach(function(box){
+      var key = 'cae_' + group + '_' + box.id;
+      if(load(key) === '1') box.checked = true;
+      box.addEventListener('change', function(){
+        store(key, box.checked ? '1' : '0');
+        updateProgress();
+      });
+    });
+  });
+  updateProgress();
+}
+function resetGroup(group){
+  document.querySelectorAll('.chk[data-store="'+group+'"] input[type=checkbox]').forEach(function(box){
+    box.checked = false; store('cae_'+group+'_'+box.id,'0');
+  });
+  updateProgress();
+}
+function countGroup(group){
+  var boxes = document.querySelectorAll('.chk[data-store="'+group+'"] input[type=checkbox]');
+  var done = 0;
+  boxes.forEach(function(b){ if(b.checked) done++; });
+  return [done, boxes.length];
+}
+function updateProgress(){
+  var w = countGroup('w1'), d = countGroup('daily');
+  var wp = document.getElementById('w1prog'), dp = document.getElementById('dailyProg');
+  if(wp) wp.textContent = w[0] + ' / ' + w[1] + ' done';
+  if(dp) dp.textContent = d[0] + ' / ' + d[1];
+}
+
+/* ---------- lead score calculator ---------- */
+var CHECKS = [
+  {p:18, t:'Not mobile-friendly',              d:'Have to pinch-zoom, sideways scroll, or the text is tiny on a phone'},
+  {p:15, t:'Outdated design',                  d:'Looks pre-2015 — gradient buttons, tiny logo, old copyright year'},
+  {p:12, t:'Slow to load',                     d:'Over 4 seconds, or a PageSpeed mobile score under 50'},
+  {p:12, t:'No clear call-to-action',          d:'Not obvious what to do next within 3 seconds of landing'},
+  {p:10, t:'Contact details buried or unclickable', d:'Phone number not tappable, or no number in the header at all'},
+  {p:8,  t:'Bad layout',                       d:'Overlapping elements, broken images, walls of text, broken menu'},
+  {p:8,  t:'Missing key information',          d:'No service list, no service area, no prices, no opening hours'},
+  {p:7,  t:'Weak SEO basics',                  d:'Page title says "Home", no town name anywhere, barely indexed'},
+  {p:6,  t:'Unprofessional appearance',        d:'Stretched logo, low-res or obvious stock photos, typos, clashing colours'},
+  {p:4,  t:'No social proof',                  d:'No reviews, testimonials or gallery on the site at all'}
+];
+function buildCalc(){
+  var wrap = document.getElementById('calcList');
+  if(!wrap) return;
+  CHECKS.forEach(function(c,i){
+    var row = document.createElement('div');
+    row.className = 'calc-row';
+    row.innerHTML = '<input type="checkbox" id="cc'+i+'" data-p="'+c.p+'">' +
+      '<div class="lbl">'+c.t+'<small>'+c.d+'</small></div>' +
+      '<div class="pts">+'+c.p+'</div>';
+    wrap.appendChild(row);
+  });
+  wrap.querySelectorAll('input').forEach(function(b){ b.addEventListener('change', calcScore); });
+  calcScore();
+}
+function calcScore(){
+  var none = document.getElementById('c0');
+  var boxes = document.querySelectorAll('#calcList input[type=checkbox]');
+  var score = 0;
+  if(none && none.checked){
+    score = 100;
+    boxes.forEach(function(b){ b.disabled = true; b.parentElement.style.opacity = .4; });
+  } else {
+    boxes.forEach(function(b){
+      b.disabled = false; b.parentElement.style.opacity = 1;
+      if(b.checked) score += parseInt(b.getAttribute('data-p'),10);
+    });
+  }
+  var grade, verdict, action, colour;
+  if(none && none.checked){
+    grade='A+'; colour='var(--good)';
+    verdict='Grade A+ — no website';
+    action='Contact TODAY. Phone or DM as well as email. Your highest-priority lead type.';
+  } else if(score >= 70){
+    grade='A'; colour='var(--good)';
+    verdict='Grade A — strong prospect';
+    action='Build a mockup of their homepage before you email. Send Template C.';
+  } else if(score >= 45){
+    grade='B'; colour='var(--acc)';
+    verdict='Grade B — worth contacting';
+    action='Standard personalised email (Template B) naming the two worst problems.';
+  } else if(score >= 25){
+    grade='C'; colour='var(--warn)';
+    verdict='Grade C — low priority';
+    action='Batch it. Send at the end of the week only if you have spare capacity.';
+  } else {
+    grade='SKIP'; colour='var(--faint)';
+    verdict= score===0 ? 'Tick the problems above' : 'SKIP — their site is fine';
+    action= score===0 ? '—' : 'Delete the row and move on. Your time is the scarce resource.';
+  }
+  var n=document.getElementById('scoreNum');
+  n.textContent = score; n.style.color = colour;
+  document.getElementById('scoreVerdict').textContent = verdict;
+  document.getElementById('scoreVerdict').style.color = colour;
+  document.getElementById('scoreAction').textContent = action;
+  var bar = document.getElementById('scoreBar');
+  bar.style.width = Math.min(score,100) + '%';
+  bar.style.background = colour;
+  var notes = document.getElementById('scoreNotes');
+  notes.innerHTML = score>0
+    ? '<b>Modifiers:</b> 25+ Google reviews at 4.5★ or better → bump one grade up in priority. No reviews in 2 years or a dead phone number → drop them regardless of score. Record <b>'+score+'</b> in the Score column and “'+grade+'” comes out of the Grade formula automatically.'
+    : '';
+}
+function resetCalc(){
+  var none = document.getElementById('c0');
+  if(none) none.checked = false;
+  document.querySelectorAll('#calcList input[type=checkbox]').forEach(function(b){ b.checked = false; });
+  calcScore();
+}
+
+/* ---------- scrollspy ---------- */
+function initSpy(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){ a.classList.remove('active'); });
+        if(map[e.target.id]) map[e.target.id].classList.add('active');
+      }
+    });
+  }, {rootMargin:'-10% 0px -80% 0px', threshold:0});
+  document.querySelectorAll('section[id]').forEach(function(s){ obs.observe(s); });
+  links.forEach(function(a){
+    a.addEventListener('click', function(){
+      if(window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
+    });
+  });
+}
+
+buildCalc();
+initChecks();
+initSpy();
+</script>
+</body>
+</html>
